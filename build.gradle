@@ -2,6 +2,11 @@ plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "2025.2.1"
 }
+repositories {
+    maven {
+        url "https://maven.photonvision.org/releases"
+    }
+}
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
