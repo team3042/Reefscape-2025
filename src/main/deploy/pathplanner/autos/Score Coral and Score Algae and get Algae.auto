@@ -7,31 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "square 1"
+            "pathName": "Barge to Score Coral"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "square 2"
+            "pathName": "Coral to Barge"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "square 3"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "square 4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "test print"
+            "pathName": "Barge to Score Alage"
           }
         }
       ]
