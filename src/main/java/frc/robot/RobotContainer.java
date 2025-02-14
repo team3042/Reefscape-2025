@@ -41,8 +41,9 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
       "swerve"));
-  // private final SwerveSubsystem drivebase = new SwerveSubsystem(new File("/Users/3042/Documents/GitHub/Reefscape-2025/src/main/deploy",
-  //     "swerve")); 
+  // private final SwerveSubsystem drivebase = new SwerveSubsystem(new
+  // File("/Users/3042/Documents/GitHub/Reefscape-2025/src/main/deploy",
+  // "swerve"));
 
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled
@@ -50,8 +51,7 @@ public class RobotContainer {
    */
   private SendableChooser<Command> autoChooser;
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-      () -> driverXbox.getLeftY() * -1,
-      () -> driverXbox.getLeftX() * -1)//change back to -1
+      () -> driverXbox.getLeftY(), () -> driverXbox.getLeftX())// change back to -1
       .withControllerRotationAxis(driverXbox::getRightX)
       .deadband(OperatorConstants.DEADBAND)
       .scaleTranslation(0.8)

@@ -81,6 +81,7 @@ public class Elevator extends SubsystemBase {
     // Reset both encoders to 0
     public void resetEncoders() {
         elevatorMotor.getEncoder().setPosition(0);
+
     }
 
     // Reset the elevator encoder to 0

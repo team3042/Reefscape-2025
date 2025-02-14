@@ -93,12 +93,7 @@ public class Manipulators extends SubsystemBase {
     public void setVoltageWristRotationMotor(double volts) {
         volts = Math.max(volts, -12.0); // Don't allow setting less than -12 volts
         volts = Math.min(volts, 12.0); // Don't allow setting more than 12 volts
-
-        if (WristRotationLimitSwitch.get() || (!WristRotationLimitSwitch.get() && volts >= 0)) {
-            wristRotationMotor.setVoltage(volts);
-        } else {
-            stopWristRotationMotor();
-        }
+        wristRotationMotor.setVoltage(volts);
     }
 
     public void setVoltageCoralWheelMotor(double volts) {
