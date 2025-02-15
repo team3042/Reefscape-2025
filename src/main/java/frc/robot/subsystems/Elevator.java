@@ -19,19 +19,19 @@ import com.revrobotics.spark.SparkClosedLoopController;
 public class Elevator extends SubsystemBase {
 
     private final SparkMax elevatorMotor;
-    private final SparkMax elevatorFollowingMotor;
+    // private final SparkMax elevatorFollowingMotor;
     private final SparkMaxConfig elevatorEncoderConfig;
     private final SparkMaxConfig motorConfig = new SparkMaxConfig();
     public final DigitalInput ElevatorLimitSwitch;
 
     public Elevator() {// TODO: Change deviceId to canspark ids or something idk im new
         elevatorMotor = new SparkMax(16, MotorType.kBrushless);
-        elevatorFollowingMotor = new SparkMax(17, MotorType.kBrushless);
+        // elevatorFollowingMotor = new SparkMax(17, MotorType.kBrushless);
         elevatorEncoderConfig = new SparkMaxConfig();
         ElevatorLimitSwitch = new DigitalInput(3);
 
         // follows other elevator motor
-        elevatorEncoderConfig.follow(17);
+        // elevatorEncoderConfig.follow(17);
 
         // this no longer works with new sparkmax code
         // elevatorMotor.restoreFactoryDefaults();
@@ -64,11 +64,12 @@ public class Elevator extends SubsystemBase {
         volts = Math.min(volts, 12.0); // Don't allow setting more than 12 volts
         // UNTESTED CODE!!!!!!!!!!!!!!!!!!!! WATCH
         // OUT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        if (!ElevatorLimitSwitch.get()) {
-            elevatorMotor.setVoltage(volts);
-        } else {
-            stopElevatorMotor();
-        }
+        // if (!ElevatorLimitSwitch.get()) {
+        // elevatorMotor.setVoltage(volts);
+        // } else {
+        // stopElevatorMotor();
+        // }
+        elevatorMotor.setVoltage(volts);
     }
 
     // Methods for stopping the motors
