@@ -3,44 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-<<<<<<<< Updated upstream:src/main/deploy/pathplanner/paths/Backwards 1M.path
-        "x": 5.0,
-        "y": 5.0
+        "x": 8.038741438356164,
+        "y": 6.271339897260273
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.0,
-        "y": 5.0
-========
-        "x": 2.569392123287671,
-        "y": 6.662007705479453
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 3.2755993150684937,
-        "y": 6.662007705479453
->>>>>>>> Stashed changes:src/main/deploy/pathplanner/paths/New Path.path
+        "x": 7.407662671232877,
+        "y": 6.301391267123288
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-<<<<<<<< Updated upstream:src/main/deploy/pathplanner/paths/Backwards 1M.path
-        "x": 4.0,
-        "y": 5.0
+        "x": 4.222217465753425,
+        "y": 6.6770333904109584
       },
       "prevControl": {
-        "x": 5.0,
-        "y": 5.0
-========
-        "x": 6.29576198630137,
-        "y": 1.2978381849315064
-      },
-      "prevControl": {
-        "x": 6.761558219178082,
-        "y": 7.353189212328767
->>>>>>>> Stashed changes:src/main/deploy/pathplanner/paths/New Path.path
+        "x": 4.823244863013699,
+        "y": 6.662007705479452
       },
       "nextControl": null,
       "isLocked": false,
@@ -64,7 +45,7 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Square Paths",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0
