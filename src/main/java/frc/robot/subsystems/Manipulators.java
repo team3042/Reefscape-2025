@@ -20,7 +20,7 @@ public class Manipulators extends SubsystemBase {
     private final SparkMax wristRotationMotor;
     private final SparkMax coralWheelMotor;
     private final SparkMax algaeWheelMotor;
-    private final AbsoluteEncoderConfig wristRotationEncoderConfig;
+    private final SparkMaxConfig wristRotationEncoderConfig;
     private final AbsoluteEncoderConfig coralWheelEncoderConfig;
     private final AbsoluteEncoderConfig algaeWheelEncoderConfig;
     private final SparkMaxConfig motorConfig = new SparkMaxConfig();
@@ -33,7 +33,7 @@ public class Manipulators extends SubsystemBase {
         coralWheelMotor = new SparkMax(0, MotorType.kBrushless);
         algaeWheelMotor = new SparkMax(0, MotorType.kBrushless);
 
-        wristRotationEncoderConfig = new AbsoluteEncoderConfig();
+        wristRotationEncoderConfig = new SparkMaxConfig();
         coralWheelEncoderConfig = new AbsoluteEncoderConfig();
         algaeWheelEncoderConfig = new AbsoluteEncoderConfig();
 
@@ -96,28 +96,6 @@ public class Manipulators extends SubsystemBase {
         wristRotationMotor.setVoltage(volts);
     }
 
-    public void setVoltageCoralWheelMotor(double volts) {
-        volts = Math.max(volts, -12.0); // Don't allow setting less than -12 volts
-        volts = Math.min(volts, 12.0); // Don't allow setting more than 12 volts
-        // sets voltage for coral wheel motor
-        if (CoralWheelLimitSwitch.get() || (!CoralWheelLimitSwitch.get() && volts >= 0)) {
-            coralWheelMotor.setVoltage(volts);
-        } else {
-            stopCoralWheelMotor();
-        }
-    }
-
-    public void setVoltageAlgaeWheelMotor(double volts) {
-        volts = Math.max(volts, -12.0); // Don't allow setting less than -12 volts
-        volts = Math.min(volts, 12.0); // Don't allow setting more than 12 volts
-        // sets voltage for coral wheel motor
-        if (AlgaeWheelLimitSwitch.get() || (!AlgaeWheelLimitSwitch.get() && volts >= 0)) {
-            algaeWheelMotor.setVoltage(volts);
-        } else {
-            stopAlgaeWheelMotor();
-        }
-    }
-
     // Methods for stopping the motors
     public void stopWristRotationMotor() {
         setPowerToWristRotationMotor(0);
@@ -136,14 +114,6 @@ public class Manipulators extends SubsystemBase {
         return wristRotationMotor.getEncoder().getPosition();
     }
 
-    public double getCoralWheelMotorPosition() {
-        return coralWheelMotor.getEncoder().getPosition();
-    }
-
-    public double getAlgaeWheelMotorPosition() {
-        return algaeWheelMotor.getEncoder().getPosition();
-    }
-
     // Encoder methods for getting the motor velocity
     public double getWristRotationMotorVelocity() {
         return wristRotationMotor.getEncoder().getVelocity();
@@ -158,24 +128,13 @@ public class Manipulators extends SubsystemBase {
     }
 
     // Reset all encoders to 0
-    public void resetEncoders() {
+    public void resetWristEncoders() {
         wristRotationMotor.getEncoder().setPosition(0);
-        coralWheelMotor.getEncoder().setPosition(0);
-        algaeWheelMotor.getEncoder().setPosition(0);
     }
 
     // Reset the wrist rotation encoder to 0
     public void resetWristRotationEncoder() {
         wristRotationMotor.getEncoder().setPosition(0);
-    }
-
-    // Reset the coral wheel encoder to 0
-    public void resetCoralWheelEncoder() {
-        coralWheelMotor.getEncoder().setPosition(0);
-    }// Reset the coral wheel encoder to 0
-
-    public void resetAlgaeWheelEncoder() {
-        algaeWheelMotor.getEncoder().setPosition(0);
     }
 
 }

@@ -22,6 +22,8 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.elevator.ElevatorManualPower;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
@@ -41,6 +43,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
       "swerve"));
+  private final ElevatorManualPower manPower = new ElevatorManualPower(2);
+  private final ElevatorManualPower womanPower = new ElevatorManualPower(-2);
   // private final SwerveSubsystem drivebase = new SwerveSubsystem(new
   // File("/Users/3042/Documents/GitHub/Reefscape-2025/src/main/deploy",
   // "swerve"));
@@ -144,8 +148,9 @@ public class RobotContainer {
       driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
       driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
       driverXbox.back().whileTrue(drivebase.centerModulesCommand());
-      driverXbox.leftBumper().onTrue(Commands.none());
-      driverXbox.rightBumper().onTrue(Commands.none());
+      driverXbox.leftBumper().onTrue((womanPower));
+      driverXbox.rightBumper().onTrue((manPower));// ugly power
+
     } else {
       driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
       driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
@@ -156,6 +161,7 @@ public class RobotContainer {
       driverXbox.back().whileTrue(Commands.none());
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(Commands.none());
+
     }
 
   }
@@ -169,7 +175,7 @@ public class RobotContainer {
 
     return autoChooser.getSelected();
     // An example command will be run in autonomous
-    // return drivebase.getAutonomousCommand("New Auto");
+    // return drivebase.getAutonomousCommand("Ne Auto");
   }
 
   public void setMotorBrake(boolean brake) {
