@@ -82,20 +82,9 @@ public class RobotContainer {
       .allianceRelativeControl(true);
   // Derive the heading axis with math!
   SwerveInputStream driveDirectAngleKeyboard = driveAngularVelocityKeyboard.copy()
-      .withControllerHeadingAxis(() -> Math.sin(
-          driverXbox.getRawAxis(
-              2) *
-              Math.PI)
-          *
-          (Math.PI *
-              2),
-          () -> Math.cos(
-              driverXbox.getRawAxis(
-                  2) *
-                  Math.PI)
-              *
-              (Math.PI *
-                  2))
+      .withControllerHeadingAxis(
+          () -> Math.sin(driverXbox.getRawAxis(2) * Math.PI) * (Math.PI * 2),
+          () -> Math.cos(driverXbox.getRawAxis(2) * Math.PI) * (Math.PI * 2))
       .headingWhile(true);
 
   /**

@@ -49,9 +49,9 @@ public class Manipulators extends SubsystemBase {
         wristRotationEncoderConfig.inverted(Constants.wristRotationMotorReversed);
         coralWheelEncoderConfig.inverted(Constants.coralWheelMotorReversed);
         algaeWheelEncoderConfig.inverted(Constants.algaeWheelMotorReversed);
-        wristRotationMotor.setInverted(Constants.wristRotationMotorReversed);
-        coralWheelMotor.setInverted(Constants.coralWheelMotorReversed);
-        algaeWheelMotor.setInverted(Constants.algaeWheelMotorReversed);
+        // wristRotationMotor.setInverted(Constants.wristRotationMotorReversed);
+        // coralWheelMotor.setInverted(Constants.coralWheelMotorReversed);
+        // algaeWheelMotor.setInverted(Constants.algaeWheelMotorReversed);
 
         // Setting idle mode to break when not in use (Untested)
         motorConfig.idleMode(SparkMaxConfig.IdleMode.kBrake);

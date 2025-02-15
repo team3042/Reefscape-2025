@@ -18,14 +18,19 @@ import com.revrobotics.spark.SparkClosedLoopController;
 public class Elevator extends SubsystemBase {
 
     private final SparkMax elevatorMotor;
-    private final AbsoluteEncoderConfig elevatorEncoderConfig;
+    private final SparkMax elevatorFollowingMotor;
+    private final SparkMaxConfig elevatorEncoderConfig;
     private final SparkMaxConfig motorConfig = new SparkMaxConfig();
     public final DigitalInput ElevatorLimitSwitch;
 
     public Elevator() {// TODO: Change deviceId to canspark ids or something idk im new
-        elevatorMotor = new SparkMax(0, MotorType.kBrushless);
-        elevatorEncoderConfig = new AbsoluteEncoderConfig();
+        elevatorMotor = new SparkMax(16, MotorType.kBrushless);
+        elevatorFollowingMotor = new SparkMax(17, MotorType.kBrushless);
+        elevatorEncoderConfig = new SparkMaxConfig();
         ElevatorLimitSwitch = new DigitalInput(3);
+
+        // follows other elevator motor
+        elevatorEncoderConfig.follow(17);
 
         // this no longer works with new sparkmax code
         // elevatorMotor.restoreFactoryDefaults();
@@ -33,7 +38,7 @@ public class Elevator extends SubsystemBase {
 
         // this code inverts motor, may or may not be used later(Untested)
         elevatorEncoderConfig.inverted(Constants.elevatorMotorReversed);
-        elevatorMotor.setInverted(Constants.elevatorMotorReversed);
+        // elevatorMotor.setInverted(Constants.elevatorMotorReversed);
 
         // Setting idle mode to break when not in use (Untested)
         motorConfig.idleMode(SparkMaxConfig.IdleMode.kBrake);
@@ -43,20 +48,22 @@ public class Elevator extends SubsystemBase {
     }
 
     // Methods for setting power to the motors
-    public void setPowerToElevatorMotor(double percentPower) {
-        if (ElevatorLimitSwitch.get() || (!ElevatorLimitSwitch.get() && percentPower >= 0)) {
-            elevatorMotor.set(percentPower);
-        } else {
-            stopElevatorMotor();
-        }
-    }
+    // public void setPowerToElevatorMotor(double percentPower) {
+    // if (ElevatorLimitSwitch.get() || (!ElevatorLimitSwitch.get() && percentPower
+    // >= 0)) {
+    // elevatorMotor.set(percentPower);
+    // } else {
+    // stopElevatorMotor();
+    // }
+    // }
 
     // Methods for setting voltage to the motors
     public void setVoltageElevatorMotor(double volts) {
         volts = Math.max(volts, -12.0); // Don't allow setting less than -12 volts
         volts = Math.min(volts, 12.0); // Don't allow setting more than 12 volts
-
-        if (ElevatorLimitSwitch.get() || (!ElevatorLimitSwitch.get() && volts >= 0)) {
+        // UNTESTED CODE!!!!!!!!!!!!!!!!!!!! WATCH
+        // OUT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if (!ElevatorLimitSwitch.get()) {
             elevatorMotor.setVoltage(volts);
         } else {
             stopElevatorMotor();
@@ -65,7 +72,7 @@ public class Elevator extends SubsystemBase {
 
     // Methods for stopping the motors
     public void stopElevatorMotor() {
-        setPowerToElevatorMotor(0);
+        setVoltageElevatorMotor(0);
     }
 
     // Encoder methods for getting the motor position
