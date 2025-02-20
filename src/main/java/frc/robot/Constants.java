@@ -26,6 +26,7 @@ public final class Constants {
   public static final Matter CHASSIS = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
   public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms sprk max velocity lag
   public static final double MAX_SPEED = Units.feetToMeters(14.5);
+  public static final double LOW_MAX_SPEED = Units.feetToMeters(6.25);
   public static final boolean elevatorMotorReversed = true;
   public static final boolean wristRotationMotorReversed = true;
   public static final boolean coralWheelMotorReversed = true;
@@ -53,5 +54,18 @@ public final class Constants {
     public static final double LEFT_Y_DEADBAND = 0.1;
     public static final double RIGHT_X_DEADBAND = 0.1;
     public static final double TURN_CONSTANT = 6;
+  }
+
+  public static class ElevatorConstants {
+
+    public static double kDt = 0.02;
+    public static double kMaxVelocity = 1.75;
+    public static double kMaxAcceleration = 0.75;
+    public static double kP = 1.3;
+    public static double kI = 0.0;
+    public static double kD = 0.7;
+    public static double kS = 1.1;
+    public static double kG = 1.2;
+    public static double kV = 1.3;
   }
 }

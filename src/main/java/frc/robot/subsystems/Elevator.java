@@ -5,10 +5,14 @@ import com.revrobotics.spark.config.AbsoluteEncoderConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.math.controller.ElevatorFeedforward;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.ElevatorConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.spark.SparkMax;
@@ -21,8 +25,18 @@ public class Elevator extends SubsystemBase {
     private final SparkMax elevatorMotor;
     // private final SparkMax elevatorFollowingMotor;
     private final SparkMaxConfig elevatorEncoderConfig;
-    private final SparkMaxConfig motorConfig = new SparkMaxConfig();
     public final DigitalInput ElevatorLimitSwitch;
+
+    private ElevatorFeedforward elevatorFeedforward;
+    private final TrapezoidProfile.Constraints m_constraints = new TrapezoidProfile.Constraints(
+            ElevatorConstants.kMaxVelocity,
+            ElevatorConstants.kMaxAcceleration);
+    private final ProfiledPIDController m_controller = new ProfiledPIDController(ElevatorConstants.kP,
+            ElevatorConstants.kI, ElevatorConstants.kD, m_constraints, ElevatorConstants.kDt);
+    private final ElevatorFeedforward m_feedforward = new ElevatorFeedforward(
+            ElevatorConstants.kS,
+            ElevatorConstants.kG,
+            ElevatorConstants.kV);
 
     public Elevator() {// TODO: Change deviceId to canspark ids or something idk im new
         elevatorMotor = new SparkMax(16, MotorType.kBrushless);
@@ -30,20 +44,13 @@ public class Elevator extends SubsystemBase {
         elevatorEncoderConfig = new SparkMaxConfig();
         ElevatorLimitSwitch = new DigitalInput(3);
 
-        // follows other elevator motor
-        // elevatorEncoderConfig.follow(17);
-
-        // this no longer works with new sparkmax code
-        // elevatorMotor.restoreFactoryDefaults();
-        // coralWheelMotor.restoreFactoryDefaults();
-
         // this code inverts motor, may or may not be used later(Untested)
         elevatorEncoderConfig.inverted(Constants.elevatorMotorReversed);
         // elevatorMotor.setInverted(Constants.elevatorMotorReversed);
 
         // Setting idle mode to break when not in use (Untested)
-        motorConfig.idleMode(SparkMaxConfig.IdleMode.kBrake);
-        elevatorMotor.configure(motorConfig, SparkMax.ResetMode.kResetSafeParameters,
+        elevatorEncoderConfig.idleMode(SparkMaxConfig.IdleMode.kBrake);
+        elevatorMotor.configure(elevatorEncoderConfig, SparkMax.ResetMode.kResetSafeParameters,
                 SparkMax.PersistMode.kPersistParameters);
 
     }
@@ -96,6 +103,11 @@ public class Elevator extends SubsystemBase {
     // Reset the elevator encoder to 0
     public void resetElevatorEncoder() {
         elevatorMotor.getEncoder().setPosition(0);
+    }
+
+    @Override
+    public void periodic() {
+
     }
 
 }
