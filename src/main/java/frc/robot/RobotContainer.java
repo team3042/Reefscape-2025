@@ -28,6 +28,9 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
+import swervelib.parser.SwerveDriveConfiguration;
+
+import static swervelib.math.SwerveMath.calculateMaxAngularVelocity;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -118,7 +121,12 @@ public class RobotContainer {
       currentSpeed = Constants.MAX_SPEED;
       lowSpeed = false;
     }
-
+    SwerveDriveConfiguration driveCfg = drivebase.getSwerveDriveConfiguration();
+    drivebase.getSwerveDrive().setMaximumAllowableSpeeds(currentSpeed,
+            calculateMaxAngularVelocity(
+                    currentSpeed,
+                    Math.abs(driveCfg.moduleLocationsMeters[0].getX()),
+                    Math.abs(driveCfg.moduleLocationsMeters[0].getY())));
   }
 
   /**
