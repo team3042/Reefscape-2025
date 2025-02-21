@@ -87,7 +87,7 @@ public class SwerveSubsystem extends SubsystemBase {
     // objects being created.
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
     try {
-      swerveDrive = new SwerveParser(directory).createSwerveDrive(RobotContainer.currentSpeed,
+      swerveDrive = new SwerveParser(directory).createSwerveDrive(Constants.MAX_SPEED,
           new Pose2d(new Translation2d(Meter.of(1),
               Meter.of(4)),
               Rotation2d.fromDegrees(0)));
@@ -131,7 +131,7 @@ public class SwerveSubsystem extends SubsystemBase {
   public SwerveSubsystem(SwerveDriveConfiguration driveCfg, SwerveControllerConfiguration controllerCfg) {
     swerveDrive = new SwerveDrive(driveCfg,
         controllerCfg,
-        RobotContainer.currentSpeed,
+        Constants.MAX_SPEED,
         new Pose2d(new Translation2d(Meter.of(2), Meter.of(0)),
             Rotation2d.fromDegrees(0)));
   }
@@ -635,7 +635,7 @@ public class SwerveSubsystem extends SubsystemBase {
         headingX,
         headingY,
         getHeading().getRadians(),
-        RobotContainer.currentSpeed);
+        Constants.MAX_SPEED);
   }
 
   /**
@@ -655,7 +655,7 @@ public class SwerveSubsystem extends SubsystemBase {
         scaledInputs.getY(),
         angle.getRadians(),
         getHeading().getRadians(),
-        RobotContainer.currentSpeed);
+        Constants.MAX_SPEED);
   }
 
   /**

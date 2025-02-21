@@ -24,7 +24,10 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.elevator.ElevatorManualPower;
+import frc.robot.commands.AlgaeIntake_SetPower;
+import frc.robot.commands.CoralIntake_SetPower;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Manipulators;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
@@ -48,6 +51,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
       "swerve"));
+  private final Manipulators manipulators = new Manipulators();
   private final ElevatorManualPower manPower = new ElevatorManualPower(3);
   private final ElevatorManualPower womanPower = new ElevatorManualPower(-3);
   public static double currentSpeed = Constants.MAX_SPEED;
@@ -116,17 +120,19 @@ public class RobotContainer {
     if (!lowSpeed) {
       currentSpeed = Constants.LOW_MAX_SPEED;
       lowSpeed = true;
+      System.out.println(currentSpeed);
 
     } else {
       currentSpeed = Constants.MAX_SPEED;
       lowSpeed = false;
+      System.out.println(currentSpeed);
     }
     SwerveDriveConfiguration driveCfg = drivebase.getSwerveDriveConfiguration();
     drivebase.getSwerveDrive().setMaximumAllowableSpeeds(currentSpeed,
-            calculateMaxAngularVelocity(
-                    currentSpeed,
-                    Math.abs(driveCfg.moduleLocationsMeters[0].getX()),
-                    Math.abs(driveCfg.moduleLocationsMeters[0].getY())));
+        calculateMaxAngularVelocity(
+            currentSpeed,
+            Math.abs(driveCfg.moduleLocationsMeters[0].getX()),
+            Math.abs(driveCfg.moduleLocationsMeters[0].getY())));
   }
 
   /**
@@ -173,7 +179,7 @@ public class RobotContainer {
       driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
       driverXbox.back().whileTrue(drivebase.centerModulesCommand());
       driverXbox.leftBumper().whileTrue((womanPower));
-      driverXbox.rightBumper().whileTrue((manPower));// ugly power
+      driverXbox.rightBumper().whileTrue((manPower)); // ugly power
 
     } else { // left bumper toggles slowmode for driver(IMPORTANT)
       /*
@@ -189,7 +195,6 @@ public class RobotContainer {
        * left/right joystick is climber up/down -ask manipulator (or dpad???) ASK ONCE
        * THEY DECIDE RAHH
        */
-
       driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
       driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
       driverXbox.b().whileTrue(
@@ -204,10 +209,10 @@ public class RobotContainer {
       // gunnerXbox.b()
       // gunnerXbox.x()
       // gunnerXbox.y()
-      // gunnerXbox.leftBumper()
-      // gunnerXbox.rightBumper()
-      // gunnerXbox.leftTrigger()
-      // gunnerXbox.rightTrigger()
+      gunnerXbox.leftBumper().whileTrue(new CoralIntake_SetPower(0.3));
+      gunnerXbox.rightBumper().whileTrue(new CoralIntake_SetPower(-0.3));
+      gunnerXbox.leftTrigger().whileTrue(new AlgaeIntake_SetPower(0.3));
+      gunnerXbox.rightTrigger().whileTrue(new AlgaeIntake_SetPower(-0.3));
 
     }
 

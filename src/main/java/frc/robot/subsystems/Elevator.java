@@ -38,7 +38,7 @@ public class Elevator extends SubsystemBase {
             ElevatorConstants.kG,
             ElevatorConstants.kV);
 
-    public Elevator() {// TODO: Change deviceId to canspark ids or something idk im new
+    public Elevator() {
         elevatorMotor = new SparkMax(16, MotorType.kBrushless);
         // elevatorFollowingMotor = new SparkMax(17, MotorType.kBrushless);
         elevatorEncoderConfig = new SparkMaxConfig();
