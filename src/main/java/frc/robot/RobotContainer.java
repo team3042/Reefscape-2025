@@ -180,8 +180,8 @@ public class RobotContainer {
       driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
       driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
       driverXbox.back().whileTrue(drivebase.centerModulesCommand());
-      driverXbox.leftBumper().whileTrue((womanPower));
-      driverXbox.rightBumper().whileTrue((manPower)); // ugly power
+      gunnerXbox.leftBumper().whileTrue((womanPower));
+      gunnerXbox.rightBumper().whileTrue((manPower)); // ugly power
 
     } else { // left bumper toggles slowmode for driver(IMPORTANT)
       /*
