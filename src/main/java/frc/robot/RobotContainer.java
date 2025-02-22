@@ -25,8 +25,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.elevator.ElevatorManualPower;
 import frc.robot.commands.elevator.ElevatorSetPos;
-import frc.robot.commands.AlgaeIntake_SetPower;
-import frc.robot.commands.CoralIntake_SetPower;
+import frc.robot.commands.manipulator.AlgaeIntake_SetPower;
+import frc.robot.commands.manipulator.CoralIntake_SetPower;
+import frc.robot.commands.manipulator.Wrist_SetPos;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Manipulators;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
@@ -191,7 +192,7 @@ public class RobotContainer {
        * x: elevator lowest level & wrist downn
        * b: elevator mid level & wrist down
        * y: elevator highest level & wrist down
-       * left/right joystick is arm up/down - ask manipulator (or dpad???) ASK ONCE
+       * left/right joystick is wrist up/down - ask manipulator (or dpad???) ASK ONCE
        * THEY DECIDE RAHH
        * left/right joystick is climber up/down -ask manipulator (or dpad???) ASK ONCE
        * THEY DECIDE RAHH
@@ -214,11 +215,14 @@ public class RobotContainer {
       gunnerXbox.rightBumper().whileTrue(new CoralIntake_SetPower(-0.3));
       gunnerXbox.leftTrigger().whileTrue(new AlgaeIntake_SetPower(0.3));
       gunnerXbox.rightTrigger().whileTrue(new AlgaeIntake_SetPower(-0.3));
-      gunnerXbox.x().whileTrue(new ElevatorSetPos(0));
+      gunnerXbox.x().onTrue(new ElevatorSetPos(0));
+      gunnerXbox.x().onTrue(new Wrist_SetPos(0.3, 0));
       // TODO: find out middle countGoal(b) and high countGoal(y)
-      gunnerXbox.b().whileTrue(new ElevatorSetPos(0)); // middle GoalCount
-      gunnerXbox.y().whileTrue(new ElevatorSetPos(0)); // high GOalCount
-      // gunnerXbox.a().whileTrue()
+      gunnerXbox.b().onTrue(new ElevatorSetPos(0)); // middle GoalCount
+      gunnerXbox.b().onTrue(new Wrist_SetPos(0.3, 0));
+      gunnerXbox.y().onTrue(new ElevatorSetPos(0)); // high GOalCount
+      gunnerXbox.y().onTrue(new Wrist_SetPos(0.3, 0));
+      gunnerXbox.a().whileTrue(new Wrist_SetPos(0.3, 0));
 
     }
 

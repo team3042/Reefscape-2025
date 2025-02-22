@@ -10,17 +10,17 @@ import frc.robot.subsystems.Elevator;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class ElevatorSetPos extends Command {
-  private double countGoal;
+  private double goalPos;
   private double distanceToGoal;
   private final int marginOE = 30;
-  private boolean goodEnough = false;
+  private boolean reachedGoal = false;
   /** Creates a new ElevatorSetPosition. */
 
   Elevator elevator;
 
   public ElevatorSetPos(double count) {
     // Use addRequirements() here to declare subsystem dependencies.
-    countGoal = count;
+    goalPos = count;
     addRequirements(elevator);
 
   }
@@ -35,16 +35,22 @@ public class ElevatorSetPos extends Command {
   @Override
   public void execute() {
     // finds distance from current position to target position
-    distanceToGoal = countGoal - elevator.getElevatorMotorPosition();
-    // moves motor towards
+    distanceToGoal = Math.abs(goalPos - elevator.getElevatorMotorPosition());
 
-    if (Math.abs(distanceToGoal) > marginOE || (distanceToGoal > 0)) {
-      elevator.setVoltageElevatorMotor(3);
-    } else if (Math.abs(distanceToGoal) > marginOE || (distanceToGoal < 0)) {
-      elevator.setVoltageElevatorMotor(-3);
-    } else {
-      elevator.stopElevatorMotor();
+    if (distanceToGoal < marginOE) {
+      reachedGoal = true;
     }
+
+    if (reachedGoal) {
+      elevator.stopElevatorMotor();
+    } else {
+      if (goalPos > elevator.getElevatorMotorPosition()) { // if the elevator is lower than the goal (it needs to go up)
+        elevator.setVoltageElevatorMotor(3);
+      } else {
+        elevator.setVoltageElevatorMotor(-3);
+      }
+    }
+
     SmartDashboard.putNumber("Elevator ERROR", distanceToGoal);
 
   }
