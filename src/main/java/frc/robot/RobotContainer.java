@@ -120,7 +120,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("test print", Commands.print("test"));
   }
 
-  public void slowMode() {
+  public void toggleSlowMode() {
     if (!lowSpeed) {
       currentSpeed = Constants.LOW_MAX_SPEED;
       lowSpeed = true;
@@ -201,13 +201,13 @@ public class RobotContainer {
        */
       driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
       driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
-      driverXbox.b().whileTrue(
-          drivebase.driveToPose(
-              new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0))));
+      // driverXbox.b().whileTrue(
+      // drivebase.driveToPose(
+      // new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0))));
       driverXbox.start().whileTrue(Commands.none());
       driverXbox.back().whileTrue(Commands.none());
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      driverXbox.rightBumper().onTrue(new InstantCommand(() -> slowMode()));
+      driverXbox.rightBumper().onTrue(new InstantCommand(() -> toggleSlowMode()));
       // gunner code
       gunnerXbox.leftBumper().whileTrue(new CoralIntake_SetPower(0.3));
       gunnerXbox.rightBumper().whileTrue(new CoralIntake_SetPower(-0.3));
