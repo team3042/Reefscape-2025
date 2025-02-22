@@ -69,12 +69,11 @@ public class Manipulators extends SubsystemBase {
     }
 
     // Methods for setting power to the motors
-    public void setPowerToWristRotationMotor(double percentPower) {
-        if (WristRotationLimitSwitch.get() || (!WristRotationLimitSwitch.get() &&
-                percentPower >= 0)) {
-            wristRotationMotor.set(percentPower);
+    public void setPowerToWristRotationMotor(double percentPower, int goalTicks) {
+        if (Math.abs(wristRotationMotor.getEncoder().getPosition() - goalTicks) < 25) {
+            stopWristRotationMotor(goalTicks);
         } else {
-            stopWristRotationMotor();
+            wristRotationMotor.set(percentPower);
         }
     }
 
@@ -104,8 +103,8 @@ public class Manipulators extends SubsystemBase {
     }
 
     // Methods for stopping the motors
-    public void stopWristRotationMotor() {
-        setPowerToWristRotationMotor(0);
+    public void stopWristRotationMotor(int goalTicks) {
+        setPowerToWristRotationMotor(0, goalTicks);
     }
 
     public void stopCoralWheelMotor() {

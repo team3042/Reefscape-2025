@@ -5,12 +5,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Robot;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class AlgaeIntake_SetPower extends Command {
   /** Creates a new AlgaeIntake_SetPower. */
-  public AlgaeIntake_SetPower(double speed) {
+
+  double speed;
+
+  public AlgaeIntake_SetPower(double speedLocal) {
     // Use addRequirements() here to declare subsystem dependencies.
+
+    addRequirements(Robot.manipulators);
+    speed = speedLocal;
+
   }
 
   // Called when the command is initially scheduled.
@@ -21,6 +29,8 @@ public class AlgaeIntake_SetPower extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
+    Robot.manipulators.setPowertoAlgaeWheelMotor(speed);
   }
 
   // Called once the command ends or is interrupted.

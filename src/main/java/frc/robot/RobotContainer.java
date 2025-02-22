@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.elevator.ElevatorManualPower;
+import frc.robot.commands.elevator.ElevatorSetPos;
 import frc.robot.commands.AlgaeIntake_SetPower;
 import frc.robot.commands.CoralIntake_SetPower;
 import frc.robot.subsystems.Elevator;
@@ -186,10 +187,10 @@ public class RobotContainer {
        * EVERYTHING BELOW IS FOR GUNNER
        * left/right bumpers are coral intake/expel for gunner
        * left/right triggers are algae intake/expel
-       * a: elevator down & arm down
-       * x: elevator lowest level & arm downn
-       * b: elevator mid level & arm down
-       * y: elevator highest level & arm down
+       * a: elevator down & wrist down
+       * x: elevator lowest level & wrist downn
+       * b: elevator mid level & wrist down
+       * y: elevator highest level & wrist down
        * left/right joystick is arm up/down - ask manipulator (or dpad???) ASK ONCE
        * THEY DECIDE RAHH
        * left/right joystick is climber up/down -ask manipulator (or dpad???) ASK ONCE
@@ -213,6 +214,11 @@ public class RobotContainer {
       gunnerXbox.rightBumper().whileTrue(new CoralIntake_SetPower(-0.3));
       gunnerXbox.leftTrigger().whileTrue(new AlgaeIntake_SetPower(0.3));
       gunnerXbox.rightTrigger().whileTrue(new AlgaeIntake_SetPower(-0.3));
+      gunnerXbox.x().whileTrue(new ElevatorSetPos(0));
+      // TODO: find out middle countGoal(b) and high countGoal(y)
+      gunnerXbox.b().whileTrue(new ElevatorSetPos(0)); // middle GoalCount
+      gunnerXbox.y().whileTrue(new ElevatorSetPos(0)); // high GOalCount
+      // gunnerXbox.a().whileTrue()
 
     }
 
