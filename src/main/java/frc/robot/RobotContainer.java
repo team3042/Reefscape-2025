@@ -22,7 +22,9 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.Score_SetPos;
 import frc.robot.commands.elevator.ElevatorManualPower;
 import frc.robot.commands.elevator.ElevatorSetPos;
 import frc.robot.commands.manipulator.AlgaeIntake_SetPower;
@@ -207,22 +209,15 @@ public class RobotContainer {
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(new InstantCommand(() -> slowMode()));
       // gunner code
-      // gunnerXbox.a()
-      // gunnerXbox.b()
-      // gunnerXbox.x()
-      // gunnerXbox.y()
       gunnerXbox.leftBumper().whileTrue(new CoralIntake_SetPower(0.3));
       gunnerXbox.rightBumper().whileTrue(new CoralIntake_SetPower(-0.3));
       gunnerXbox.leftTrigger().whileTrue(new AlgaeIntake_SetPower(0.3));
       gunnerXbox.rightTrigger().whileTrue(new AlgaeIntake_SetPower(-0.3));
-      gunnerXbox.x().onTrue(new ElevatorSetPos(0));
-      gunnerXbox.x().onTrue(new Wrist_SetPos(0.3, 0));
       // TODO: find out middle countGoal(b) and high countGoal(y)
-      gunnerXbox.b().onTrue(new ElevatorSetPos(0)); // middle GoalCount
-      gunnerXbox.b().onTrue(new Wrist_SetPos(0.3, 0));
-      gunnerXbox.y().onTrue(new ElevatorSetPos(0)); // high GOalCount
-      gunnerXbox.y().onTrue(new Wrist_SetPos(0.3, 0));
-      gunnerXbox.a().whileTrue(new Wrist_SetPos(0.3, 0));
+      gunnerXbox.x().onTrue(new Score_SetPos(ElevatorConstants.L1EncoderCounts)); // L1
+      gunnerXbox.y().onTrue(new Score_SetPos(ElevatorConstants.L2EncoderCounts)); // L2
+      gunnerXbox.a().onTrue(new Score_SetPos(ElevatorConstants.L3EncoderCounts)); // L3
+      gunnerXbox.b().onTrue(new Score_SetPos(ElevatorConstants.L4EncoderCounts)); // L4
 
     }
 

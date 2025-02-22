@@ -67,5 +67,15 @@ public final class Constants {
     public static double kS = 1.1;
     public static double kG = 1.2;
     public static double kV = 1.3;
+    public static int intakeEncoderCounts = 300; // TODO: change
+    public static int L1EncoderCounts = 200;
+    public static int L2EncoderCounts = 300;
+    public static int L3EncoderCounts = 400;
+    public static int L4EncoderCounts = 500;
+  }
+
+  public static class ManipulatorConstants {
+    public static int wristLowAngle = 200;
+    public static int wristHighAngle = 10; // TODO: change
   }
 }
