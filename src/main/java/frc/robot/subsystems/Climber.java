@@ -29,6 +29,18 @@ public class Climber extends SubsystemBase {
 
   }
 
+  public void stopClimberMotor() {
+    setVoltageClimbMotor(0);
+  }
+
+  public double getClimberPosition() {
+    return climber.getEncoder().getPosition();
+  }
+
+  public void resetCLimberEncoders() {
+    climber.getEncoder().setPosition(0);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
