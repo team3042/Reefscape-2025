@@ -27,6 +27,7 @@ public class Climber extends SubsystemBase {
     volts = Math.max(volts, -12.0); // Don't allow setting less than -12 volts
     volts = Math.min(volts, 12.0); // Don't allow setting more than 12 volts
 
+    climber.setVoltage(volts);
   }
 
   public void stopClimberMotor() {

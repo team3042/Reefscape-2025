@@ -93,9 +93,10 @@ public class Robot extends TimedRobot {
     // robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber("Max Speed", RobotContainer.currentSpeed);
+    SmartDashboard.putNumber("Current Speed", RobotContainer.currentSpeed);
     SmartDashboard.putNumber("Elevator Counts", elevator.getElevatorMotorPosition());
     SmartDashboard.putNumber("Wrist Counts", manipulators.getWristRotationMotorPosition());
+    SmartDashboard.putNumber("Climber Counts", climber.getClimberPosition());
   }
 
   /**

@@ -28,6 +28,7 @@ import frc.robot.commands.ClimberSetPos;
 import frc.robot.commands.Intake_SetPos;
 import frc.robot.commands.Score_SetPos;
 import frc.robot.commands.Startup_SetPos;
+import frc.robot.commands.ClimberManualPower;
 import frc.robot.commands.elevator.ElevatorManualPower;
 import frc.robot.commands.elevator.ElevatorSetPos;
 import frc.robot.commands.manipulator.AlgaeIntake_SetPower;
@@ -61,6 +62,8 @@ public class RobotContainer {
   // private final Manipulators manipulators = new Manipulators();
   private final ElevatorManualPower elevatorUp = new ElevatorManualPower(3);
   private final ElevatorManualPower elevatorDown = new ElevatorManualPower(-3);
+  private final ClimberManualPower climberUp = new ClimberManualPower(4.0);
+  private final ClimberManualPower climberDown = new ClimberManualPower(-4.0);
   public static double currentSpeed = Constants.MAX_SPEED;
   public boolean lowSpeed = false;
   // private final SwerveSubsystem drivebase = new SwerveSubsystem(new
@@ -211,6 +214,8 @@ public class RobotContainer {
       driverXbox.back().whileTrue(Commands.none());
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(new InstantCommand(() -> toggleSlowMode()));
+      driverXbox.leftTrigger().whileTrue((climberDown));
+      driverXbox.rightTrigger().whileTrue((climberUp));
       driverXbox.povDown().onTrue(new ClimberSetPos(200));
       driverXbox.povUp().onTrue(new ClimberSetPos(0));
       driverXbox.b().whileTrue((elevatorDown));
@@ -227,14 +232,13 @@ public class RobotContainer {
       gunnerXbox.x().onTrue(new Score_SetPos(ElevatorConstants.L2EncoderCounts));
       gunnerXbox.b().onTrue(new Score_SetPos(ElevatorConstants.L3EncoderCounts));
       gunnerXbox.y().onTrue(new Score_SetPos(ElevatorConstants.L4EncoderCounts));
-
-      gunnerXbox.b().onTrue(new Startup_SetPos());
-      gunnerXbox.a().onTrue(new Intake_SetPos());
       gunnerXbox.leftStick().onTrue(new Intake_SetPos());
       gunnerXbox.rightStick().onTrue(new Startup_SetPos());
 
-    }
+      // gunnerXbox.b().onTrue(new Startup_SetPos());
+      // gunnerXbox.a().onTrue(new Intake_SetPos());
 
+    }
   }
 
   /**
