@@ -6,17 +6,18 @@ package frc.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Robot;
 import frc.robot.subsystems.Elevator;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class ElevatorSetPos extends Command {
   private double goalPos;
   private double distanceToGoal;
-  private final int marginOE = 30;
+  private final int marginOE = 5;
   private boolean reachedGoal = false;
   /** Creates a new ElevatorSetPosition. */
 
-  Elevator elevator;
+  Elevator elevator = Robot.elevator;
 
   public ElevatorSetPos(double count) {
     // Use addRequirements() here to declare subsystem dependencies.

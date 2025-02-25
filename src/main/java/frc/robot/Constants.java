@@ -27,9 +27,9 @@ public final class Constants {
   public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms sprk max velocity lag
   public static final double MAX_SPEED = Units.feetToMeters(14.5);
   public static final double LOW_MAX_SPEED = Units.feetToMeters(3.25);
-  public static final boolean elevatorMotorReversed = true;
+  public static final boolean elevatorMotorReversed = false;
   public static final boolean wristRotationMotorReversed = true;
-  public static final boolean coralWheelMotorReversed = true;
+  public static final boolean coralWheelMotorReversed = false;
   public static final boolean algaeWheelMotorReversed = true;
   // Maximum speed of the robot in meters per second, used to limit acceleration.
 
@@ -67,15 +67,17 @@ public final class Constants {
     public static double kS = 1.1;
     public static double kG = 1.2;
     public static double kV = 1.3;
-    public static int intakeEncoderCounts = 300; // TODO: change
-    public static int L1EncoderCounts = 200;
-    public static int L2EncoderCounts = 300;
-    public static int L3EncoderCounts = 400;
-    public static int L4EncoderCounts = 500;
+    public static int intakeEncoderCounts = 70;
+    public static int L1EncoderCounts = 0;
+    public static int L2EncoderCounts = 65;
+    public static int L3EncoderCounts = 206;
+    public static int L4EncoderCounts = 423;
   }
 
   public static class ManipulatorConstants {
-    public static int wristLowAngle = 200;
-    public static int wristHighAngle = 10; // TODO: change
+    public static int wristLowAngle = 50;
+    public static int wristHighAngle = 45; // TODO: might need to have a different angle for L4 scoring
+    public static int wristIntakeAngle = 25;
+    public static int wristStartupAngle = 0;
   }
 }

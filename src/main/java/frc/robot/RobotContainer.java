@@ -25,7 +25,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ClimberSetPos;
+import frc.robot.commands.Intake_SetPos;
 import frc.robot.commands.Score_SetPos;
+import frc.robot.commands.Startup_SetPos;
 import frc.robot.commands.elevator.ElevatorManualPower;
 import frc.robot.commands.elevator.ElevatorSetPos;
 import frc.robot.commands.manipulator.AlgaeIntake_SetPower;
@@ -56,9 +58,9 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
       "swerve"));
-  private final Manipulators manipulators = new Manipulators();
-  private final ElevatorManualPower manPower = new ElevatorManualPower(3);
-  private final ElevatorManualPower womanPower = new ElevatorManualPower(-3);
+  // private final Manipulators manipulators = new Manipulators();
+  private final ElevatorManualPower elevatorUp = new ElevatorManualPower(3);
+  private final ElevatorManualPower elevatorDown = new ElevatorManualPower(-3);
   public static double currentSpeed = Constants.MAX_SPEED;
   public boolean lowSpeed = false;
   // private final SwerveSubsystem drivebase = new SwerveSubsystem(new
@@ -183,8 +185,8 @@ public class RobotContainer {
       driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
       driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
       driverXbox.back().whileTrue(drivebase.centerModulesCommand());
-      gunnerXbox.leftBumper().whileTrue((womanPower));
-      gunnerXbox.rightBumper().whileTrue((manPower)); // ugly power
+      // gunnerXbox.leftBumper().whileTrue((elevatorDown));
+      // gunnerXbox.rightBumper().whileTrue((elevatorUp));
 
     } else { // left bumper toggles slowmode for driver(IMPORTANT)
       /*
@@ -211,16 +213,25 @@ public class RobotContainer {
       driverXbox.rightBumper().onTrue(new InstantCommand(() -> toggleSlowMode()));
       driverXbox.povDown().onTrue(new ClimberSetPos(200));
       driverXbox.povUp().onTrue(new ClimberSetPos(0));
+      driverXbox.b().whileTrue((elevatorDown));
+      driverXbox.y().whileTrue((elevatorUp));
+
       // gunner code
-      gunnerXbox.leftBumper().whileTrue(new CoralIntake_SetPower(0.3));
-      gunnerXbox.rightBumper().whileTrue(new CoralIntake_SetPower(-0.3));
-      gunnerXbox.leftTrigger().whileTrue(new AlgaeIntake_SetPower(0.3));
-      gunnerXbox.rightTrigger().whileTrue(new AlgaeIntake_SetPower(-0.3));
-      // TODO: find out middle countGoal(b) and high countGoal(y)
-      gunnerXbox.x().onTrue(new Score_SetPos(ElevatorConstants.L1EncoderCounts)); // L1
-      gunnerXbox.y().onTrue(new Score_SetPos(ElevatorConstants.L2EncoderCounts)); // L2
-      gunnerXbox.a().onTrue(new Score_SetPos(ElevatorConstants.L3EncoderCounts)); // L3
-      gunnerXbox.b().onTrue(new Score_SetPos(ElevatorConstants.L4EncoderCounts)); // L4
+      // changed to setVoltageCoralPower, may need to change back depending on limit
+      // switch :)
+      gunnerXbox.leftBumper().whileTrue(new CoralIntake_SetPower(3));
+      gunnerXbox.rightBumper().whileTrue(new CoralIntake_SetPower(-4));
+      gunnerXbox.leftTrigger().whileTrue(new AlgaeIntake_SetPower(3));
+      gunnerXbox.rightTrigger().whileTrue(new AlgaeIntake_SetPower(-3));
+      gunnerXbox.a().onTrue(new Score_SetPos(ElevatorConstants.L1EncoderCounts));
+      gunnerXbox.x().onTrue(new Score_SetPos(ElevatorConstants.L2EncoderCounts));
+      gunnerXbox.b().onTrue(new Score_SetPos(ElevatorConstants.L3EncoderCounts));
+      gunnerXbox.y().onTrue(new Score_SetPos(ElevatorConstants.L4EncoderCounts));
+
+      gunnerXbox.b().onTrue(new Startup_SetPos());
+      gunnerXbox.a().onTrue(new Intake_SetPos());
+      gunnerXbox.leftStick().onTrue(new Intake_SetPos());
+      gunnerXbox.rightStick().onTrue(new Startup_SetPos());
 
     }
 

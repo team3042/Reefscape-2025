@@ -24,9 +24,9 @@ public class Manipulators extends SubsystemBase {
     private final AbsoluteEncoderConfig coralWheelEncoderConfig;
     private final AbsoluteEncoderConfig algaeWheelEncoderConfig;
     private final SparkMaxConfig motorConfig = new SparkMaxConfig();
-    public final DigitalInput WristRotationLimitSwitch;
-    public final DigitalInput CoralWheelLimitSwitch;
-    public final DigitalInput AlgaeWheelLimitSwitch;
+    public final DigitalInput wristRotationLimitSwitch;
+    public final DigitalInput coralWheelLimitSwitch;
+    public final DigitalInput algaeWheelLimitSwitch;
 
     public Manipulators() {
         wristRotationMotor = new SparkMax(19, MotorType.kBrushless);
@@ -38,9 +38,9 @@ public class Manipulators extends SubsystemBase {
         coralWheelEncoderConfig = new AbsoluteEncoderConfig();
         algaeWheelEncoderConfig = new AbsoluteEncoderConfig();
 
-        WristRotationLimitSwitch = new DigitalInput(3);
-        CoralWheelLimitSwitch = new DigitalInput(4);
-        AlgaeWheelLimitSwitch = new DigitalInput(5);
+        wristRotationLimitSwitch = new DigitalInput(3);
+        coralWheelLimitSwitch = new DigitalInput(4);
+        algaeWheelLimitSwitch = new DigitalInput(5);
 
         // this no longer works with new sparkmax code
         // elevatorMotor.restoreFactoryDefaults();
@@ -69,16 +69,12 @@ public class Manipulators extends SubsystemBase {
     }
 
     // Methods for setting power to the motors
-    public void setPowerToWristRotationMotor(double percentPower, int goalTicks) {
-        if (Math.abs(wristRotationMotor.getEncoder().getPosition() - goalTicks) < 25) {
-            stopWristRotationMotor(goalTicks);
-        } else {
-            wristRotationMotor.set(percentPower);
-        }
+    public void setPowerToWristRotationMotor(double percentPower) {
+        wristRotationMotor.set(percentPower);
     }
 
     public void setPowertoCoralWheelMotor(double percentPower) {
-        if (CoralWheelLimitSwitch.get() || (!CoralWheelLimitSwitch.get() &&
+        if (coralWheelLimitSwitch.get() || (!coralWheelLimitSwitch.get() &&
                 percentPower >= 0)) {
             coralWheelMotor.set(percentPower);
         } else {
@@ -86,8 +82,14 @@ public class Manipulators extends SubsystemBase {
         }
     }
 
+    public void setVoltageToCoralWheelMotor(double volts) {
+        volts = Math.max(volts, -12.0); // Don't allow setting less than -12 volts
+        volts = Math.min(volts, 12.0);
+        coralWheelMotor.setVoltage(volts);
+    }
+
     public void setPowertoAlgaeWheelMotor(double percentPower) {
-        if (AlgaeWheelLimitSwitch.get() || (!AlgaeWheelLimitSwitch.get() &&
+        if (algaeWheelLimitSwitch.get() || (!algaeWheelLimitSwitch.get() &&
                 percentPower >= 0)) {
             algaeWheelMotor.set(percentPower);
         } else {
@@ -103,8 +105,8 @@ public class Manipulators extends SubsystemBase {
     }
 
     // Methods for stopping the motors
-    public void stopWristRotationMotor(int goalTicks) {
-        setPowerToWristRotationMotor(0, goalTicks);
+    public void stopWristRotationMotor() {
+        wristRotationMotor.setVoltage(0);
     }
 
     public void stopCoralWheelMotor() {

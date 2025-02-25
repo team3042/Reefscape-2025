@@ -25,7 +25,7 @@ public class Elevator extends SubsystemBase {
     private final SparkMax elevatorMotor;
     // private final SparkMax elevatorFollowingMotor;
     private final SparkMaxConfig elevatorEncoderConfig;
-    public final DigitalInput ElevatorLimitSwitch;
+    // public final DigitalInput ElevatorLimitSwitch;
 
     private ElevatorFeedforward elevatorFeedforward;
     private final TrapezoidProfile.Constraints m_constraints = new TrapezoidProfile.Constraints(
@@ -42,7 +42,7 @@ public class Elevator extends SubsystemBase {
         elevatorMotor = new SparkMax(16, MotorType.kBrushless);
         // elevatorFollowingMotor = new SparkMax(17, MotorType.kBrushless);
         elevatorEncoderConfig = new SparkMaxConfig();
-        ElevatorLimitSwitch = new DigitalInput(3);
+        // ElevatorLimitSwitch = new DigitalInput(3);
 
         // this code inverts motor, may or may not be used later(Untested)
         elevatorEncoderConfig.inverted(Constants.elevatorMotorReversed);

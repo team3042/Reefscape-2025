@@ -6,6 +6,7 @@ package frc.robot.commands.manipulator;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.Manipulators;
 
 /* You should consider using the more terse Command factories API instead
 https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands
@@ -14,9 +15,11 @@ public class CoralIntake_SetPower extends Command {
     /** Creates a new Intake_SetPower. */
     double speed;
 
+    Manipulators manipulators = Robot.manipulators;
+
     public CoralIntake_SetPower(double speedlocal) {
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(Robot.manipulators);
+        addRequirements(manipulators);
         speed = speedlocal;
     }
 
@@ -29,13 +32,14 @@ public class CoralIntake_SetPower extends Command {
     @Override
     public void execute() {
 
-        Robot.manipulators.setPowertoCoralWheelMotor(speed);
+        manipulators.setVoltageToCoralWheelMotor(speed);
 
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        manipulators.stopCoralWheelMotor();
     }
 
     // Returns true when the command should end.

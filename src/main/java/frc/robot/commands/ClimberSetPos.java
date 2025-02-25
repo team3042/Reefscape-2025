@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Robot;
 import frc.robot.subsystems.Climber;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -17,7 +18,7 @@ public class ClimberSetPos extends Command {
   private final int climberMOE = 30;
   private boolean reachedGoal = false;
 
-  Climber climber;
+  Climber climber = Robot.climber;
 
   public ClimberSetPos(double count) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -45,9 +46,9 @@ public class ClimberSetPos extends Command {
       climber.stopClimberMotor();
     } else {
       if (goalPos > climber.getClimberPosition()) {
-        climber.setVoltageClimbMotor(3);
+        climber.setVoltageClimbMotor(12);
       } else {
-        climber.setVoltageClimbMotor(-3);
+        climber.setVoltageClimbMotor(-12);
       }
     }
 

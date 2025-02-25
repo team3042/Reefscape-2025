@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.ManipulatorConstants;
 import frc.robot.commands.elevator.ElevatorSetPos;
 import frc.robot.commands.manipulator.Wrist_SetPos;
@@ -12,14 +13,13 @@ import frc.robot.commands.manipulator.Wrist_SetPos;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Score_SetPos extends ParallelCommandGroup {
-  /** Creates a new Score_SetPos. */
-  public Score_SetPos(double elevatorgoalCounts) {
+public class Startup_SetPos extends ParallelCommandGroup {
+  /** Creates a new Startup_SetPos. */
+  public Startup_SetPos() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-
-    ElevatorSetPos elevatorsetpos = new ElevatorSetPos(elevatorgoalCounts);
-    Wrist_SetPos wristsetpos = new Wrist_SetPos(ManipulatorConstants.wristLowAngle);
+    ElevatorSetPos elevatorsetpos = new ElevatorSetPos(ElevatorConstants.intakeEncoderCounts);
+    Wrist_SetPos wristsetpos = new Wrist_SetPos(ManipulatorConstants.wristStartupAngle);
 
     addCommands(elevatorsetpos, wristsetpos);
   }
