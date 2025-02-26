@@ -46,9 +46,9 @@ public class ClimberSetPos extends Command {
       climber.stopClimberMotor();
     } else {
       if (goalPos > climber.getClimberPosition()) {
-        climber.setVoltageClimbMotor(12);
+        climber.setVoltageClimbMotor(6);
       } else {
-        climber.setVoltageClimbMotor(-12);
+        climber.setVoltageClimbMotor(-6);
       }
     }
 

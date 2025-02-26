@@ -13,7 +13,7 @@ import frc.robot.subsystems.Elevator;
 public class ElevatorSetPos extends Command {
   private double goalPos;
   private double distanceToGoal;
-  private final int marginOE = 5;
+  private final int marginOE = 1;
   private boolean reachedGoal = false;
   /** Creates a new ElevatorSetPosition. */
 
@@ -29,7 +29,7 @@ public class ElevatorSetPos extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    reachedGoal = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -46,9 +46,9 @@ public class ElevatorSetPos extends Command {
       elevator.stopElevatorMotor();
     } else {
       if (goalPos > elevator.getElevatorMotorPosition()) { // if the elevator is lower than the goal (it needs to go up)
-        elevator.setVoltageElevatorMotor(3);
+        elevator.setVoltageElevatorMotor(12);
       } else {
-        elevator.setVoltageElevatorMotor(-3);
+        elevator.setVoltageElevatorMotor(-12);
       }
     }
 

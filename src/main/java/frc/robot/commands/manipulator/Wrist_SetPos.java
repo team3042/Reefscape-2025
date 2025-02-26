@@ -17,7 +17,7 @@ public class Wrist_SetPos extends Command {
   private double goalPositionLocal;
   private double currentPosition;
   private double distanceToGoal;
-  private final int marginOE = 3;
+  private final int marginOE = 1;
 
   Manipulators manipulators = Robot.manipulators;
 
@@ -46,7 +46,7 @@ public class Wrist_SetPos extends Command {
       if (goalPositionLocal > currentPosition) {
         manipulators.setPowerToWristRotationMotor(0.3);
       } else {
-        manipulators.setPowerToWristRotationMotor(-0.3);
+        manipulators.setPowerToWristRotationMotor(-0.2);
       }
     }
 

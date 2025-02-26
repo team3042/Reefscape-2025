@@ -18,7 +18,7 @@ public class Startup_SetPos extends ParallelCommandGroup {
   public Startup_SetPos() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    ElevatorSetPos elevatorsetpos = new ElevatorSetPos(ElevatorConstants.intakeEncoderCounts);
+    ElevatorSetPos elevatorsetpos = new ElevatorSetPos(ElevatorConstants.L1EncoderCounts);
     Wrist_SetPos wristsetpos = new Wrist_SetPos(ManipulatorConstants.wristStartupAngle);
 
     addCommands(elevatorsetpos, wristsetpos);

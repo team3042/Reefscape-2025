@@ -38,6 +38,8 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Manipulators;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
+import java.util.function.DoubleSupplier;
+
 import swervelib.SwerveInputStream;
 import swervelib.parser.SwerveDriveConfiguration;
 
@@ -74,13 +76,19 @@ public class RobotContainer {
    * Converts driver input into a field-relative ChassisSpeeds that is controlled
    * by angular velocity.
    */
+  // .withControllerRotationAxis(driverXbox::getRightX)
+
   private SendableChooser<Command> autoChooser;
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
       () -> driverXbox.getLeftY(), () -> driverXbox.getLeftX())// change back to -1
-      .withControllerRotationAxis(driverXbox::getRightX)
+      .withControllerRotationAxis(getDriverXboxRightX())
       .deadband(OperatorConstants.DEADBAND)
       .scaleTranslation(0.8)
       .allianceRelativeControl(true);
+
+  private DoubleSupplier getDriverXboxRightX() {
+    return () -> driverXbox.getRightX() * -1;
+  }
 
   /**
    * Clone's the angular velocity input stream and converts it to a fieldRelative
@@ -224,8 +232,8 @@ public class RobotContainer {
       // gunner code
       // changed to setVoltageCoralPower, may need to change back depending on limit
       // switch :)
-      gunnerXbox.leftBumper().whileTrue(new CoralIntake_SetPower(3));
-      gunnerXbox.rightBumper().whileTrue(new CoralIntake_SetPower(-4));
+      gunnerXbox.leftBumper().whileTrue(new CoralIntake_SetPower(-4));
+      gunnerXbox.rightBumper().whileTrue(new CoralIntake_SetPower(3));
       gunnerXbox.leftTrigger().whileTrue(new AlgaeIntake_SetPower(3));
       gunnerXbox.rightTrigger().whileTrue(new AlgaeIntake_SetPower(-3));
       gunnerXbox.a().onTrue(new Score_SetPos(ElevatorConstants.L1EncoderCounts));
@@ -234,6 +242,8 @@ public class RobotContainer {
       gunnerXbox.y().onTrue(new Score_SetPos(ElevatorConstants.L4EncoderCounts));
       gunnerXbox.leftStick().onTrue(new Intake_SetPos());
       gunnerXbox.rightStick().onTrue(new Startup_SetPos());
+      gunnerXbox.povUp().onTrue((new Intake_SetPos()));
+      gunnerXbox.povDown().onTrue((new Startup_SetPos()));
 
       // gunnerXbox.b().onTrue(new Startup_SetPos());
       // gunnerXbox.a().onTrue(new Intake_SetPos());
