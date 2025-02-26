@@ -7,6 +7,7 @@ package frc.robot.subsystems.swervedrive;
 import static edu.wpi.first.units.Units.Meter;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.config.PIDConstants;
@@ -38,6 +39,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.Score_SetPos;
 import frc.robot.subsystems.swervedrive.Vision.Cameras;
 import java.io.File;
 import java.io.IOException;
@@ -119,6 +121,17 @@ public class SwerveSubsystem extends SubsystemBase {
       // updates better.
       swerveDrive.stopOdometryThread();
     }
+    // AUTONOMOUS
+    NamedCommands.registerCommand("Elevator to Intake",
+        new Score_SetPos(Constants.ElevatorConstants.intakeEncoderCounts));
+    NamedCommands.registerCommand("Elevator to L1",
+        new Score_SetPos(Constants.ElevatorConstants.L1EncoderCounts));
+    NamedCommands.registerCommand("Elevator to L2",
+        new Score_SetPos(Constants.ElevatorConstants.L2EncoderCounts));
+    NamedCommands.registerCommand("Elevator to L3",
+        new Score_SetPos(Constants.ElevatorConstants.L3EncoderCounts));
+    NamedCommands.registerCommand("Elevator to L4",
+        new Score_SetPos(Constants.ElevatorConstants.L4EncoderCounts));
     setupPathPlanner();
   }
 
