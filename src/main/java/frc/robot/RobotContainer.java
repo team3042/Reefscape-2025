@@ -235,8 +235,8 @@ public class RobotContainer {
       // switch :)
       gunnerXbox.leftBumper().whileTrue(new CoralIntake_SetPower(-4));
       gunnerXbox.rightBumper().whileTrue(new CoralIntake_SetPower(3));
-      gunnerXbox.leftTrigger().whileTrue(new AlgaeIntake_SetPower(3));
-      gunnerXbox.rightTrigger().whileTrue(new AlgaeIntake_SetPower(-3));
+      gunnerXbox.leftTrigger().whileTrue(new AlgaeIntake_SetPower(4));
+      gunnerXbox.rightTrigger().whileTrue(new AlgaeIntake_SetPower(-4));
       gunnerXbox.a().onTrue(new Score_SetPos(ElevatorConstants.L1EncoderCounts));
       gunnerXbox.x().onTrue(new Score_SetPos(ElevatorConstants.L2EncoderCounts));
       gunnerXbox.b().onTrue(new Score_SetPos(ElevatorConstants.L3EncoderCounts));

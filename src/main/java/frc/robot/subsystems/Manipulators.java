@@ -20,6 +20,7 @@ public class Manipulators extends SubsystemBase {
     private final SparkMax wristRotationMotor;
     private final SparkMax coralWheelMotor;
     private final SparkMax algaeWheelMotor;
+    private final SparkMax algaeWheelMotor2;
     private final SparkMaxConfig wristRotationEncoderConfig;
     private final AbsoluteEncoderConfig coralWheelEncoderConfig;
     private final AbsoluteEncoderConfig algaeWheelEncoderConfig;
@@ -29,9 +30,10 @@ public class Manipulators extends SubsystemBase {
     public final DigitalInput algaeWheelLimitSwitch;
 
     public Manipulators() {
+        algaeWheelMotor = new SparkMax(17, MotorType.kBrushless);
+        algaeWheelMotor2 = new SparkMax(18, MotorType.kBrushless);
         wristRotationMotor = new SparkMax(19, MotorType.kBrushless);
         coralWheelMotor = new SparkMax(20, MotorType.kBrushless);
-        algaeWheelMotor = new SparkMax(17, MotorType.kBrushless);
         // TODO: define a following motor for second algae motor
 
         wristRotationEncoderConfig = new SparkMaxConfig();
@@ -65,6 +67,9 @@ public class Manipulators extends SubsystemBase {
         algaeWheelMotor.configure(motorConfig,
                 SparkMax.ResetMode.kResetSafeParameters,
                 SparkMax.PersistMode.kPersistParameters);
+        algaeWheelMotor2.configure(motorConfig,
+                SparkMax.ResetMode.kResetSafeParameters,
+                SparkMax.PersistMode.kPersistParameters);
 
     }
 
@@ -88,13 +93,11 @@ public class Manipulators extends SubsystemBase {
         coralWheelMotor.setVoltage(volts);
     }
 
-    public void setPowertoAlgaeWheelMotor(double percentPower) {
-        if (algaeWheelLimitSwitch.get() || (!algaeWheelLimitSwitch.get() &&
-                percentPower >= 0)) {
-            algaeWheelMotor.set(percentPower);
-        } else {
-            stopAlgaeWheelMotor();
-        }
+    public void setPowertoAlgaeWheelMotor(double volts) {
+        volts = Math.max(volts, -12.0); // Don't allow setting less than -12 volts
+        volts = Math.min(volts, 12.0);
+        algaeWheelMotor.setVoltage(volts);
+        algaeWheelMotor2.setVoltage(-volts);
     }
 
     // Methods for setting voltage to the motors
