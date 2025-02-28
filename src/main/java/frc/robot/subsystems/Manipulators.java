@@ -23,7 +23,7 @@ public class Manipulators extends SubsystemBase {
     private final SparkMax algaeWheelMotor2;
     private final SparkMaxConfig wristRotationEncoderConfig;
     private final AbsoluteEncoderConfig coralWheelEncoderConfig;
-    private final AbsoluteEncoderConfig algaeWheelEncoderConfig;
+    private final SparkMaxConfig algaeWheelEncoderConfig;
     private final SparkMaxConfig motorConfig = new SparkMaxConfig();
     public final DigitalInput wristRotationLimitSwitch;
     public final DigitalInput coralWheelLimitSwitch;
@@ -38,7 +38,7 @@ public class Manipulators extends SubsystemBase {
 
         wristRotationEncoderConfig = new SparkMaxConfig();
         coralWheelEncoderConfig = new AbsoluteEncoderConfig();
-        algaeWheelEncoderConfig = new AbsoluteEncoderConfig();
+        algaeWheelEncoderConfig = new SparkMaxConfig();
 
         wristRotationLimitSwitch = new DigitalInput(3);
         coralWheelLimitSwitch = new DigitalInput(4);

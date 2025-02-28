@@ -28,6 +28,7 @@ import frc.robot.commands.ClimberSetPos;
 import frc.robot.commands.Intake_SetPos;
 import frc.robot.commands.Score_SetPos;
 import frc.robot.commands.Startup_SetPos;
+import frc.robot.commands.WristManualPower;
 import frc.robot.commands.ClimberManualPower;
 import frc.robot.commands.elevator.ElevatorManualPower;
 import frc.robot.commands.elevator.ElevatorSetPos;
@@ -66,6 +67,8 @@ public class RobotContainer {
   private final ElevatorManualPower elevatorDown = new ElevatorManualPower(-3);
   private final ClimberManualPower climberUp = new ClimberManualPower(4.0);
   private final ClimberManualPower climberDown = new ClimberManualPower(-4.0);
+  private final WristManualPower wristup = new WristManualPower(4);
+  private final WristManualPower wristdown = new WristManualPower(-4);
   public static double currentSpeed = Constants.MAX_SPEED;
   public boolean lowSpeed = false;
   // private final SwerveSubsystem drivebase = new SwerveSubsystem(new
@@ -233,8 +236,8 @@ public class RobotContainer {
       // gunner code
       // changed to setVoltageCoralPower, may need to change back depending on limit
       // switch :)
-      gunnerXbox.leftBumper().whileTrue(new CoralIntake_SetPower(-4));
-      gunnerXbox.rightBumper().whileTrue(new CoralIntake_SetPower(3));
+      gunnerXbox.leftBumper().whileTrue(new CoralIntake_SetPower(-8));
+      gunnerXbox.rightBumper().whileTrue(new CoralIntake_SetPower(8));
       gunnerXbox.leftTrigger().whileTrue(new AlgaeIntake_SetPower(4));
       gunnerXbox.rightTrigger().whileTrue(new AlgaeIntake_SetPower(-4));
       gunnerXbox.a().onTrue(new Score_SetPos(ElevatorConstants.L1EncoderCounts));
@@ -243,8 +246,8 @@ public class RobotContainer {
       gunnerXbox.y().onTrue(new Score_SetPos(ElevatorConstants.L4EncoderCounts));
       gunnerXbox.leftStick().onTrue(new Intake_SetPos());
       gunnerXbox.rightStick().onTrue(new Startup_SetPos());
-      gunnerXbox.povUp().onTrue((new Intake_SetPos()));
-      gunnerXbox.povDown().onTrue((new Startup_SetPos()));
+      gunnerXbox.povUp().whileTrue(wristup);
+      gunnerXbox.povDown().whileTrue(wristdown);
 
       // gunnerXbox.b().onTrue(new Startup_SetPos());
       // gunnerXbox.a().onTrue(new Intake_SetPos());
