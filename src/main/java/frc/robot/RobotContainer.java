@@ -67,8 +67,8 @@ public class RobotContainer {
   private final ElevatorManualPower elevatorDown = new ElevatorManualPower(-3);
   private final ClimberManualPower climberUp = new ClimberManualPower(4.0);
   private final ClimberManualPower climberDown = new ClimberManualPower(-4.0);
-  private final WristManualPower wristup = new WristManualPower(4);
-  private final WristManualPower wristdown = new WristManualPower(-4);
+  private final WristManualPower wristup = new WristManualPower(-2);
+  private final WristManualPower wristdown = new WristManualPower(2);
   public static double currentSpeed = Constants.MAX_SPEED;
   public boolean lowSpeed = false;
   // private final SwerveSubsystem drivebase = new SwerveSubsystem(new
@@ -217,20 +217,20 @@ public class RobotContainer {
        * left/right joystick is climber up/down -ask manipulator (or dpad???) ASK ONCE
        * THEY DECIDE RAHH
        */
-      driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
+      driverXbox.leftBumper().onTrue((Commands.runOnce(drivebase::zeroGyro)));
+      // driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
       // driverXbox.b().whileTrue(
       // drivebase.driveToPose(
       // new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0))));
       driverXbox.start().whileTrue(Commands.none());
       driverXbox.back().whileTrue(Commands.none());
-      driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+      driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(new InstantCommand(() -> toggleSlowMode()));
       driverXbox.leftTrigger().whileTrue((climberDown));
       driverXbox.rightTrigger().whileTrue((climberUp));
       driverXbox.povDown().onTrue(new ClimberSetPos(200));
       driverXbox.povUp().onTrue(new ClimberSetPos(0));
-      driverXbox.b().whileTrue((elevatorDown));
+      driverXbox.a().whileTrue((elevatorDown));
       driverXbox.y().whileTrue((elevatorUp));
 
       // gunner code
@@ -238,8 +238,8 @@ public class RobotContainer {
       // switch :)
       gunnerXbox.leftBumper().whileTrue(new CoralIntake_SetPower(-8));
       gunnerXbox.rightBumper().whileTrue(new CoralIntake_SetPower(8));
-      gunnerXbox.leftTrigger().whileTrue(new AlgaeIntake_SetPower(4));
-      gunnerXbox.rightTrigger().whileTrue(new AlgaeIntake_SetPower(-4));
+      gunnerXbox.leftTrigger().whileTrue(new AlgaeIntake_SetPower(-4));
+      gunnerXbox.rightTrigger().whileTrue(new AlgaeIntake_SetPower(4));
       gunnerXbox.a().onTrue(new Score_SetPos(ElevatorConstants.L1EncoderCounts));
       gunnerXbox.x().onTrue(new Score_SetPos(ElevatorConstants.L2EncoderCounts));
       gunnerXbox.b().onTrue(new Score_SetPos(ElevatorConstants.L3EncoderCounts));

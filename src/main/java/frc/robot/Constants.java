@@ -75,7 +75,7 @@ public final class Constants {
   }
 
   public static class ManipulatorConstants {
-    public static int wristLowAngle = 34;
+    public static int wristLowAngle = 25;
     public static int wristHighAngle = 23; // TODO: might need to have a different angle for L4 scoring
     public static int wristIntakeAngle = 15;
     public static int wristStartupAngle = 0;

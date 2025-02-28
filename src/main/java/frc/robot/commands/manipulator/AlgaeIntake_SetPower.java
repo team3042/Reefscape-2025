@@ -36,6 +36,7 @@ public class AlgaeIntake_SetPower extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    Robot.manipulators.stopAlgaeWheelMotor();
   }
 
   // Returns true when the command should end.
