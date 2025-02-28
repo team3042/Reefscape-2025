@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -132,10 +133,30 @@ public class RobotContainer {
     configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
     NamedCommands.registerCommand("test", Commands.print("I EXIST"));
+    // AUTONOMOUS
+    NamedCommands.registerCommand("Elevator to Intake",
+        new Score_SetPos(Constants.ElevatorConstants.intakeEncoderCounts));
+    NamedCommands.registerCommand("Elevator to L1",
+        new Score_SetPos(Constants.ElevatorConstants.L1EncoderCounts));
+    NamedCommands.registerCommand("Elevator to L2",
+        new Score_SetPos(Constants.ElevatorConstants.L2EncoderCounts));
+    NamedCommands.registerCommand("Elevator to L3",
+        new Score_SetPos(Constants.ElevatorConstants.L3EncoderCounts));
+    NamedCommands.registerCommand("Elevator to L4",
+        new Score_SetPos(Constants.ElevatorConstants.L4EncoderCounts));
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
-    NamedCommands.registerCommand("test print", Commands.print("test"));
+    // NamedCommands.registerCommand("test print", Commands.print("test"));
+    // PathPlannerAuto autoCommand = new PathPlannerAuto("manipulator test v1");
+    // autoCommand.event("elevator L3").onTrue(new
+    // Score_SetPos(Constants.ElevatorConstants.L3EncoderCounts));
+    // autoCommand.event("elevator L2").onTrue(new
+    // Score_SetPos(Constants.ElevatorConstants.L2EncoderCounts));
+    // autoCommand.event("elevator intake").onTrue(new
+    // Score_SetPos(Constants.ElevatorConstants.intakeEncoderCounts));
+    // SmartDashboard.putData("AUTONOMOUS", autoCommand);
+
   }
 
   public void toggleSlowMode() {

@@ -121,17 +121,7 @@ public class SwerveSubsystem extends SubsystemBase {
       // updates better.
       swerveDrive.stopOdometryThread();
     }
-    // AUTONOMOUS
-    NamedCommands.registerCommand("Elevator to Intake",
-        new Score_SetPos(Constants.ElevatorConstants.intakeEncoderCounts));
-    NamedCommands.registerCommand("Elevator to L1",
-        new Score_SetPos(Constants.ElevatorConstants.L1EncoderCounts));
-    NamedCommands.registerCommand("Elevator to L2",
-        new Score_SetPos(Constants.ElevatorConstants.L2EncoderCounts));
-    NamedCommands.registerCommand("Elevator to L3",
-        new Score_SetPos(Constants.ElevatorConstants.L3EncoderCounts));
-    NamedCommands.registerCommand("Elevator to L4",
-        new Score_SetPos(Constants.ElevatorConstants.L4EncoderCounts));
+
     setupPathPlanner();
   }
 
