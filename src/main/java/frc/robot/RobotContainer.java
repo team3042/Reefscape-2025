@@ -144,6 +144,8 @@ public class RobotContainer {
         new Score_SetPos(Constants.ElevatorConstants.L3EncoderCounts));
     NamedCommands.registerCommand("Elevator to L4",
         new Score_SetPos(Constants.ElevatorConstants.L4EncoderCounts));
+    NamedCommands.registerCommand("Drop Coral", new CoralIntake_SetPower(-8));
+    NamedCommands.registerCommand("Stop Coral Intake", new CoralIntake_SetPower(0));
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
