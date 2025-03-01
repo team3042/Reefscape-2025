@@ -6,7 +6,6 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -129,8 +128,6 @@ public class RobotContainer {
    */
   public RobotContainer() {
 
-    // Configure the trigger bindings
-    configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
     NamedCommands.registerCommand("test", Commands.print("I EXIST"));
     // AUTONOMOUS
@@ -149,15 +146,8 @@ public class RobotContainer {
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
-    // NamedCommands.registerCommand("test print", Commands.print("test"));
-    // PathPlannerAuto autoCommand = new PathPlannerAuto("manipulator test v1");
-    // autoCommand.event("elevator L3").onTrue(new
-    // Score_SetPos(Constants.ElevatorConstants.L3EncoderCounts));
-    // autoCommand.event("elevator L2").onTrue(new
-    // Score_SetPos(Constants.ElevatorConstants.L2EncoderCounts));
-    // autoCommand.event("elevator intake").onTrue(new
-    // Score_SetPos(Constants.ElevatorConstants.intakeEncoderCounts));
-    // SmartDashboard.putData("AUTONOMOUS", autoCommand);
+    // Configure the trigger bindings
+    configureBindings();
 
   }
 
@@ -286,8 +276,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
 
     return autoChooser.getSelected();
-    // An example command will be run in autonomous
-    // return drivebase.getAutonomousCommand("Ne Auto");
   }
 
   public void setMotorBrake(boolean brake) {
