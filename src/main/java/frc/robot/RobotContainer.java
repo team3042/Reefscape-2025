@@ -129,18 +129,12 @@ public class RobotContainer {
   public RobotContainer() {
 
     DriverStation.silenceJoystickConnectionWarning(true);
-    NamedCommands.registerCommand("test", Commands.print("I EXIST"));
-    // AUTONOMOUS
-    NamedCommands.registerCommand("Elevator to Intake",
-        new Score_SetPos(Constants.ElevatorConstants.intakeEncoderCounts));
     NamedCommands.registerCommand("Elevator to L1",
         new Score_SetPos(Constants.ElevatorConstants.L1EncoderCounts));
     NamedCommands.registerCommand("Elevator to L2",
         new Score_SetPos(Constants.ElevatorConstants.L2EncoderCounts));
     NamedCommands.registerCommand("Elevator to L3",
         new Score_SetPos(Constants.ElevatorConstants.L3EncoderCounts));
-    NamedCommands.registerCommand("Elevator to L4",
-        new Score_SetPos(Constants.ElevatorConstants.L4EncoderCounts));
     NamedCommands.registerCommand("Drop Coral", new CoralIntake_SetPower(-8));
     NamedCommands.registerCommand("Stop Coral Intake", new CoralIntake_SetPower(0));
     autoChooser = AutoBuilder.buildAutoChooser();
@@ -185,15 +179,9 @@ public class RobotContainer {
    */
   private void configureBindings() {
 
-    Command driveFieldOrientedDirectAngle = drivebase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
-    Command driveRobotOrientedAngularVelocity = drivebase.driveFieldOriented(driveRobotOriented);
-    Command driveSetpointGen = drivebase.driveWithSetpointGeneratorFieldRelative(
-        driveDirectAngle);
     Command driveFieldOrientedDirectAngleKeyboard = drivebase.driveFieldOriented(driveDirectAngleKeyboard);
     Command driveFieldOrientedAnglularVelocityKeyboard = drivebase.driveFieldOriented(driveAngularVelocityKeyboard);
-    Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(
-        driveDirectAngleKeyboard);
 
     if (RobotBase.isSimulation()) {
       drivebase.setDefaultCommand(driveFieldOrientedDirectAngleKeyboard);

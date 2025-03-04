@@ -67,10 +67,10 @@ public final class Constants {
     public static double kS = 1.1;
     public static double kG = 1.2;
     public static double kV = 1.3;
-    public static int intakeEncoderCounts = 80;
+    public static int intakeEncoderCounts = 88;
     public static int L1EncoderCounts = 0;
     public static int L2EncoderCounts = 135;
-    public static int L3EncoderCounts = 260;
+    public static int L3EncoderCounts = 220;
     public static int L4EncoderCounts = 265;
   }
 
