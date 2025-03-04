@@ -26,6 +26,7 @@ public class Elevator extends SubsystemBase {
     // private final SparkMax elevatorFollowingMotor;
     private final SparkMaxConfig elevatorEncoderConfig;
     // public final DigitalInput ElevatorLimitSwitch;
+    private final DigitalInput elevatorLimitSwitch;
 
     private ElevatorFeedforward elevatorFeedforward;
     private final TrapezoidProfile.Constraints m_constraints = new TrapezoidProfile.Constraints(
@@ -40,6 +41,7 @@ public class Elevator extends SubsystemBase {
 
     public Elevator() {
         elevatorMotor = new SparkMax(16, MotorType.kBrushless);
+        elevatorLimitSwitch = new DigitalInput(0);
         // elevatorFollowingMotor = new SparkMax(17, MotorType.kBrushless);
         elevatorEncoderConfig = new SparkMaxConfig();
         // ElevatorLimitSwitch = new DigitalInput(3);
@@ -76,7 +78,11 @@ public class Elevator extends SubsystemBase {
         // } else {
         // stopElevatorMotor();
         // }
-        elevatorMotor.setVoltage(volts);
+        if (elevatorLimitSwitch.get()) {
+            stopElevatorMotor();
+        } else {
+            elevatorMotor.setVoltage(volts);
+        }
     }
 
     // Methods for stopping the motors

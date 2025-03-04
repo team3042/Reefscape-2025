@@ -25,9 +25,9 @@ public class Manipulators extends SubsystemBase {
     private final AbsoluteEncoderConfig coralWheelEncoderConfig;
     private final SparkMaxConfig algaeWheelEncoderConfig;
     private final SparkMaxConfig motorConfig = new SparkMaxConfig();
-    public final DigitalInput wristRotationLimitSwitch;
-    public final DigitalInput coralWheelLimitSwitch;
-    public final DigitalInput algaeWheelLimitSwitch;
+    public final DigitalInput wristRotationLimitSwitchUp;
+    public final DigitalInput wristRotationLimitSwitchDown;
+    public final DigitalInput coralIntakeLimitSwitch;
 
     public Manipulators() {
         algaeWheelMotor = new SparkMax(17, MotorType.kBrushless);
@@ -40,9 +40,9 @@ public class Manipulators extends SubsystemBase {
         coralWheelEncoderConfig = new AbsoluteEncoderConfig();
         algaeWheelEncoderConfig = new SparkMaxConfig();
 
-        wristRotationLimitSwitch = new DigitalInput(3);
-        coralWheelLimitSwitch = new DigitalInput(4);
-        algaeWheelLimitSwitch = new DigitalInput(5);
+        wristRotationLimitSwitchUp = new DigitalInput(1);
+        wristRotationLimitSwitchDown = new DigitalInput(2);
+        coralIntakeLimitSwitch = new DigitalInput(3);
 
         // this no longer works with new sparkmax code
         // elevatorMotor.restoreFactoryDefaults();
@@ -75,13 +75,16 @@ public class Manipulators extends SubsystemBase {
 
     // Methods for setting power to the motors
     public void setPowerToWristRotationMotor(double percentPower) {
-        wristRotationMotor.set(percentPower);
+        if ((wristRotationLimitSwitchUp.get() && percentPower > 0)
+                || (wristRotationLimitSwitchDown.get() && percentPower < 0)) {
+            stopWristRotationMotor();
+        } else {
+            wristRotationMotor.set(percentPower);
+        }
     }
 
     public void setPowertoCoralWheelMotor(double percentPower) {
-        if (coralWheelLimitSwitch.get() || (!coralWheelLimitSwitch.get() &&
-                percentPower >= 0)) {
-            coralWheelMotor.set(percentPower);
+        if (!coralIntakeLimitSwitch.get() && percentPower >= 0) {
         } else {
             stopCoralWheelMotor();
         }
