@@ -43,6 +43,7 @@ import java.util.function.DoubleSupplier;
 
 import swervelib.SwerveInputStream;
 import swervelib.parser.SwerveDriveConfiguration;
+// import frc.robot.subsystems.swervedrive.SwerveSubsystem.driveToDistanceCommand;
 
 import static swervelib.math.SwerveMath.calculateMaxAngularVelocity;
 
@@ -127,14 +128,20 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-
+    // AT is april tags
     DriverStation.silenceJoystickConnectionWarning(true);
+    NamedCommands.registerCommand("testet", new drivebase.driveToDistanceCommand(1.0, 2, 0));
+    NamedCommands.registerCommand("tempAT13", new AlgaeIntake_SetPower(10));
+    NamedCommands.registerCommand("tempAT19", new AlgaeIntake_SetPower(10));
+    NamedCommands.registerCommand("tempAT20", new AlgaeIntake_SetPower(10));
     NamedCommands.registerCommand("Elevator to L1",
         new Score_SetPos(Constants.ElevatorConstants.L1EncoderCounts));
     NamedCommands.registerCommand("Elevator to L2",
         new Score_SetPos(Constants.ElevatorConstants.L2EncoderCounts));
     NamedCommands.registerCommand("Elevator to L3",
         new Score_SetPos(Constants.ElevatorConstants.L3EncoderCounts));
+    NamedCommands.registerCommand("Elevator to L4",
+        new Score_SetPos(Constants.ElevatorConstants.L4EncoderCounts));
     NamedCommands.registerCommand("Drop Coral", new CoralIntake_SetPower(-8));
     NamedCommands.registerCommand("Stop Coral Intake", new CoralIntake_SetPower(0));
     autoChooser = AutoBuilder.buildAutoChooser();
