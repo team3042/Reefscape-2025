@@ -78,7 +78,7 @@ public class Elevator extends SubsystemBase {
         // } else {
         // stopElevatorMotor();
         // }
-        if (elevatorLimitSwitch.get()) {
+        if (!elevatorLimitSwitch.get()) {
             stopElevatorMotor();
         } else {
             elevatorMotor.setVoltage(volts);
@@ -87,7 +87,7 @@ public class Elevator extends SubsystemBase {
 
     // Methods for stopping the motors
     public void stopElevatorMotor() {
-        setVoltageElevatorMotor(0);
+        elevatorMotor.setVoltage(0);
     }
 
     // Encoder methods for getting the motor position
@@ -109,6 +109,10 @@ public class Elevator extends SubsystemBase {
     // Reset the elevator encoder to 0
     public void resetElevatorEncoder() {
         elevatorMotor.getEncoder().setPosition(0);
+    }
+
+    public boolean elevatorlimitSwitchClicked() {
+        return elevatorLimitSwitch.get();
     }
 
     @Override

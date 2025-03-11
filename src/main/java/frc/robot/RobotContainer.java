@@ -24,16 +24,16 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.ClimberSetPos;
 import frc.robot.commands.Intake_SetPos;
 import frc.robot.commands.Score_SetPos;
 import frc.robot.commands.Startup_SetPos;
-import frc.robot.commands.WristManualPower;
-import frc.robot.commands.ClimberManualPower;
+import frc.robot.commands.climber.ClimberManualPower;
+import frc.robot.commands.climber.ClimberSetPos;
 import frc.robot.commands.elevator.ElevatorManualPower;
 import frc.robot.commands.elevator.ElevatorSetPos;
 import frc.robot.commands.manipulator.AlgaeIntake_SetPower;
 import frc.robot.commands.manipulator.CoralIntake_SetPower;
+import frc.robot.commands.manipulator.WristManualPower;
 import frc.robot.commands.manipulator.Wrist_SetPos;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Manipulators;
@@ -130,7 +130,7 @@ public class RobotContainer {
   public RobotContainer() {
     // AT is april tags
     DriverStation.silenceJoystickConnectionWarning(true);
-    NamedCommands.registerCommand("testet", new drivebase.driveToDistanceCommand(1.0, 2, 0));
+    NamedCommands.registerCommand("testet", drivebase.driveToDistanceCommand(1.0, 2));
     NamedCommands.registerCommand("tempAT13", new AlgaeIntake_SetPower(10));
     NamedCommands.registerCommand("tempAT19", new AlgaeIntake_SetPower(10));
     NamedCommands.registerCommand("tempAT20", new AlgaeIntake_SetPower(10));
@@ -256,9 +256,6 @@ public class RobotContainer {
       gunnerXbox.rightStick().onTrue(new Startup_SetPos());
       gunnerXbox.povUp().whileTrue(wristup);
       gunnerXbox.povDown().whileTrue(wristdown);
-
-      // gunnerXbox.b().onTrue(new Startup_SetPos());
-      // gunnerXbox.a().onTrue(new Intake_SetPos());
 
     }
   }

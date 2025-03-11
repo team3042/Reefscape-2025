@@ -25,9 +25,7 @@ public class Manipulators extends SubsystemBase {
     private final AbsoluteEncoderConfig coralWheelEncoderConfig;
     private final SparkMaxConfig algaeWheelEncoderConfig;
     private final SparkMaxConfig motorConfig = new SparkMaxConfig();
-    public final DigitalInput wristRotationLimitSwitchUp;
     public final DigitalInput wristRotationLimitSwitchDown;
-    public final DigitalInput coralIntakeLimitSwitch;
 
     public Manipulators() {
         algaeWheelMotor = new SparkMax(17, MotorType.kBrushless);
@@ -40,9 +38,7 @@ public class Manipulators extends SubsystemBase {
         coralWheelEncoderConfig = new AbsoluteEncoderConfig();
         algaeWheelEncoderConfig = new SparkMaxConfig();
 
-        wristRotationLimitSwitchUp = new DigitalInput(1);
-        wristRotationLimitSwitchDown = new DigitalInput(2);
-        coralIntakeLimitSwitch = new DigitalInput(3);
+        wristRotationLimitSwitchDown = new DigitalInput(1);
 
         // this no longer works with new sparkmax code
         // elevatorMotor.restoreFactoryDefaults();
@@ -75,8 +71,7 @@ public class Manipulators extends SubsystemBase {
 
     // Methods for setting power to the motors
     public void setPowerToWristRotationMotor(double percentPower) {
-        if ((wristRotationLimitSwitchUp.get() && percentPower > 0)
-                || (wristRotationLimitSwitchDown.get() && percentPower < 0)) {
+        if (wristRotationLimitSwitchDown.get() && percentPower > 0) {
             stopWristRotationMotor();
         } else {
             wristRotationMotor.set(percentPower);
@@ -84,10 +79,7 @@ public class Manipulators extends SubsystemBase {
     }
 
     public void setPowertoCoralWheelMotor(double percentPower) {
-        if (!coralIntakeLimitSwitch.get() && percentPower >= 0) {
-        } else {
-            stopCoralWheelMotor();
-        }
+        coralWheelMotor.set(percentPower);
     }
 
     public void setVoltageToCoralWheelMotor(double volts) {
@@ -149,6 +141,10 @@ public class Manipulators extends SubsystemBase {
     // Reset the wrist rotation encoder to 0
     public void resetWristRotationEncoder() {
         wristRotationMotor.getEncoder().setPosition(0);
+    }
+
+    public boolean wristLimitSwitchClicked() {
+        return wristRotationLimitSwitchDown.get();
     }
 
 }
