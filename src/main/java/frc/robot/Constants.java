@@ -70,7 +70,7 @@ public final class Constants {
     public static double kV = 1.3;
     public static int intakeEncoderCounts = 88;
     public static int L1EncoderCounts = 0;
-    public static int L2EncoderCounts = 65;
+    public static int L2EncoderCounts = 53;
     public static int L3EncoderCounts = 210;
     public static int L4EncoderCounts = 430;
   }
@@ -78,7 +78,7 @@ public final class Constants {
   public static class ManipulatorConstants {
     public static int wristLowAngle = -6;
     public static int wristHighAngle = -7; // TODO: might need to have a different angle for L4 scoring
-    public static int wristIntakeAngle = 13;
+    public static int wristIntakeAngle = 0;
     public static int wristStartupAngle = 2;
   }
 }

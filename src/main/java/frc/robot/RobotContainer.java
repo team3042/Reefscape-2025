@@ -135,13 +135,13 @@ public class RobotContainer {
     NamedCommands.registerCommand("tempAT19", new AlgaeIntake_SetPower(10));
     NamedCommands.registerCommand("tempAT20", new AlgaeIntake_SetPower(10));
     NamedCommands.registerCommand("Elevator to L1",
-        new Score_SetPos(Constants.ElevatorConstants.L1EncoderCounts));
+        new Score_SetPos(Constants.ElevatorConstants.L1EncoderCounts, Constants.ManipulatorConstants.wristLowAngle));
     NamedCommands.registerCommand("Elevator to L2",
-        new Score_SetPos(Constants.ElevatorConstants.L2EncoderCounts));
+        new Score_SetPos(Constants.ElevatorConstants.L2EncoderCounts, Constants.ManipulatorConstants.wristLowAngle));
     NamedCommands.registerCommand("Elevator to L3",
-        new Score_SetPos(Constants.ElevatorConstants.L3EncoderCounts));
+        new Score_SetPos(Constants.ElevatorConstants.L3EncoderCounts, Constants.ManipulatorConstants.wristLowAngle));
     NamedCommands.registerCommand("Elevator to L4",
-        new Score_SetPos(Constants.ElevatorConstants.L4EncoderCounts));
+        new Score_SetPos(Constants.ElevatorConstants.L4EncoderCounts, Constants.ManipulatorConstants.wristHighAngle));
     NamedCommands.registerCommand("Drop Coral", new CoralIntake_SetPower(-8));
     NamedCommands.registerCommand("Stop Coral Intake", new CoralIntake_SetPower(0));
     autoChooser = AutoBuilder.buildAutoChooser();
@@ -244,14 +244,18 @@ public class RobotContainer {
       // gunner code
       // changed to setVoltageCoralPower, may need to change back depending on limit
       // switch :)
-      gunnerXbox.leftBumper().whileTrue(new CoralIntake_SetPower(-8));
+      gunnerXbox.leftBumper().whileTrue(new CoralIntake_SetPower(-7));
       gunnerXbox.rightBumper().whileTrue(new CoralIntake_SetPower(8));
       gunnerXbox.leftTrigger().whileTrue(new AlgaeIntake_SetPower(-4));
       gunnerXbox.rightTrigger().whileTrue(new AlgaeIntake_SetPower(4));
-      gunnerXbox.a().onTrue(new Score_SetPos(ElevatorConstants.L1EncoderCounts));
-      gunnerXbox.x().onTrue(new Score_SetPos(ElevatorConstants.L2EncoderCounts));
-      gunnerXbox.b().onTrue(new Score_SetPos(ElevatorConstants.L3EncoderCounts));
-      gunnerXbox.y().onTrue(new Score_SetPos(ElevatorConstants.L4EncoderCounts));
+      gunnerXbox.a().onTrue(new Score_SetPos(ElevatorConstants.L1EncoderCounts,
+          Constants.ManipulatorConstants.wristLowAngle));
+      gunnerXbox.x().onTrue(new Score_SetPos(ElevatorConstants.L2EncoderCounts,
+          Constants.ManipulatorConstants.wristLowAngle));
+      gunnerXbox.b().onTrue(new Score_SetPos(ElevatorConstants.L3EncoderCounts,
+          Constants.ManipulatorConstants.wristLowAngle));
+      gunnerXbox.y().onTrue(new Score_SetPos(ElevatorConstants.L4EncoderCounts,
+          Constants.ManipulatorConstants.wristHighAngle));
       gunnerXbox.leftStick().onTrue(new Intake_SetPos());
       gunnerXbox.rightStick().onTrue(new Startup_SetPos());
       gunnerXbox.povUp().whileTrue(wristup);

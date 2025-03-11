@@ -58,32 +58,31 @@ public class Elevator extends SubsystemBase {
     }
 
     // Methods for setting power to the motors
-    // public void setPowerToElevatorMotor(double percentPower) {
-    // if (ElevatorLimitSwitch.get() || (!ElevatorLimitSwitch.get() && percentPower
-    // >= 0)) {
-    // elevatorMotor.set(percentPower);
-    // } else {
-    // stopElevatorMotor();
-    // }
-    // }
-
-    // Methods for setting voltage to the motors
-    public void setVoltageElevatorMotor(double volts) {
-        volts = Math.max(volts, -12.0); // Don't allow setting less than -12 volts
-        volts = Math.min(volts, 12.0); // Don't allow setting more than 12 volts
-        // UNTESTED CODE!!!!!!!!!!!!!!!!!!!! WATCH
-        // OUT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // if (!ElevatorLimitSwitch.get()) {
-        // elevatorMotor.setVoltage(volts);
-        // } else {
-        // stopElevatorMotor();
-        // }
-        if (!elevatorLimitSwitch.get()) {
-            stopElevatorMotor();
-        } else {
+    public void setVoltageToElevatorMotor(double volts) {
+        if (elevatorLimitSwitch.get() || (!elevatorLimitSwitch.get() && volts <= 0)) {
             elevatorMotor.setVoltage(volts);
+        } else {
+            stopElevatorMotor();
         }
     }
+
+    // Methods for setting voltage to the motors
+    // public void setVoltageElevatorMotor(double volts) {
+    // volts = Math.max(volts, -12.0); // Don't allow setting less than -12 volts
+    // volts = Math.min(volts, 12.0); // Don't allow setting more than 12 volts
+    // // UNTESTED CODE!!!!!!!!!!!!!!!!!!!! WATCH
+    // // OUT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // // if (!ElevatorLimitSwitch.get()) {
+    // // elevatorMotor.setVoltage(volts);
+    // // } else {
+    // // stopElevatorMotor();
+    // // }
+    // if (elevatorLimitSwitch.get()) {
+    // stopElevatorMotor();
+    // } else {
+    // elevatorMotor.setVoltage(volts);
+    // }
+    // }
 
     // Methods for stopping the motors
     public void stopElevatorMotor() {

@@ -14,12 +14,12 @@ import frc.robot.commands.manipulator.Wrist_SetPos;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class Score_SetPos extends ParallelCommandGroup {
   /** Creates a new Score_SetPos. */
-  public Score_SetPos(double elevatorgoalCounts) {
+  public Score_SetPos(double elevatorgoalCounts, double wristgoalCounts) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 
     ElevatorSetPos elevatorsetpos = new ElevatorSetPos(elevatorgoalCounts);
-    Wrist_SetPos wristsetpos = new Wrist_SetPos(ManipulatorConstants.wristLowAngle);
+    Wrist_SetPos wristsetpos = new Wrist_SetPos(wristgoalCounts);
 
     addCommands(elevatorsetpos, wristsetpos);
   }

@@ -46,9 +46,9 @@ public class ElevatorSetPos extends Command {
       elevator.stopElevatorMotor();
     } else {
       if (goalPos > elevator.getElevatorMotorPosition()) { // if the elevator is lower than the goal (it needs to go up)
-        elevator.setVoltageElevatorMotor(12);
+        elevator.setVoltageToElevatorMotor(12);
       } else {
-        elevator.setVoltageElevatorMotor(-12);
+        elevator.setVoltageToElevatorMotor(-12);
       }
     }
 
