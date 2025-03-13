@@ -53,7 +53,7 @@ public class Wrist_PIDSetPos extends Command {
   @Override
   public void execute() {
 
-    currentPos = (double) (manipulators.getWristRotationMotorPosition());
+    currentPos = manipulators.getWristRotationMotorPosition();
     powerToApply = pid.calculate(currentPos);
     manipulators.setPowerToWristRotationMotor(powerToApply);
 

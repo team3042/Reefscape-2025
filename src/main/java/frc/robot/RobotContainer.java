@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Intake_SetPos;
+import frc.robot.commands.Manual_ElevatorSetPos;
 import frc.robot.commands.Score_SetPos;
 import frc.robot.commands.Startup_SetPos;
 import frc.robot.commands.climber.ClimberManualPower;
@@ -66,6 +67,12 @@ public class RobotContainer {
   // private final Manipulators manipulators = new Manipulators();
   private final ElevatorManualPower elevatorUp = new ElevatorManualPower(3);
   private final ElevatorManualPower elevatorDown = new ElevatorManualPower(-3);
+  // NOT TESTED: Parallel command group manual up and down w/ wrist position
+  // maintanance
+  // private final Manual_ElevatorSetPos elevatorUp = new
+  // Manual_ElevatorSetPos(3);
+  // private final Manual_ElevatorSetPos elevatorDown = new
+  // Manual_ElevatorSetPos(-3);
   private final ClimberManualPower climberUp = new ClimberManualPower(4.0);
   private final ClimberManualPower climberDown = new ClimberManualPower(-4.0);
   private final WristManualPower wristup = new WristManualPower(-2);
