@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
@@ -80,5 +81,14 @@ public final class Constants {
     public static int wristHighAngle = -7; // TODO: might need to have a different angle for L4 scoring
     public static int wristIntakeAngle = 0;
     public static int wristStartupAngle = 2;
+    public static double wristkP = 0;
+    public static double wristkI = 0;
+    public static double wristkD = 0;
+    public static double wristkS = 0;
+    public static double wristkG = 0;
+    public static double wristkV = 0;
+    public static double wristMaxVelocity = 0;
+    public static double wristMaxAcceleration = 0;
+    public static final ArmFeedforward armFeedforward = new ArmFeedforward(wristkS, wristkG, wristkV);
   }
 }
