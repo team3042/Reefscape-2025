@@ -6,9 +6,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Robot;
-import frc.robot.RobotContainer;
 import frc.robot.commands.elevator.ElevatorManualPower;
-import frc.robot.commands.manipulator.Wrist_PIDSetPos;
+import frc.robot.commands.manipulator.Wrist_FFSetPos;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -18,7 +17,7 @@ public class Manual_ElevatorSetPos extends ParallelCommandGroup {
   public Manual_ElevatorSetPos(int manpow) {
 
     ElevatorManualPower elevatorManualPower = new ElevatorManualPower(manpow);
-    Wrist_PIDSetPos wristSetPos = new Wrist_PIDSetPos(Robot.manipulators.getWristRotationMotorPosition());
+    Wrist_FFSetPos wristSetPos = new Wrist_FFSetPos(Robot.manipulators.getWristRotationMotorPosition());
 
     addCommands(elevatorManualPower, wristSetPos);
   }

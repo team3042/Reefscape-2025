@@ -31,8 +31,8 @@ public class Manipulators extends SubsystemBase {
     public Manipulators() {
         algaeWheelMotor = new SparkMax(17, MotorType.kBrushless);
         algaeWheelMotor2 = new SparkMax(18, MotorType.kBrushless);
-        wristRotationMotor = new SparkMax(19, MotorType.kBrushless);
-        coralWheelMotor = new SparkMax(20, MotorType.kBrushless);
+        wristRotationMotor = new SparkMax(20, MotorType.kBrushless);
+        coralWheelMotor = new SparkMax(19, MotorType.kBrushless);
         // TODO: define a following motor for second algae motor
 
         wristRotationEncoderConfig = new SparkMaxConfig();
@@ -49,9 +49,6 @@ public class Manipulators extends SubsystemBase {
         wristRotationEncoderConfig.inverted(Constants.wristRotationMotorReversed);
         coralWheelEncoderConfig.inverted(Constants.coralWheelMotorReversed);
         algaeWheelEncoderConfig.inverted(Constants.algaeWheelMotorReversed);
-        // wristRotationMotor.setInverted(Constants.wristRotationMotorReversed);
-        // coralWheelMotor.setInverted(Constants.coralWheelMotorReversed);
-        // algaeWheelMotor.setInverted(Constants.algaeWheelMotorReversed);
 
         // Setting idle mode to break when not in use (Untested)
         motorConfig.idleMode(SparkMaxConfig.IdleMode.kBrake);

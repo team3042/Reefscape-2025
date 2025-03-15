@@ -17,7 +17,7 @@ public class Wrist_SetPos extends Command {
   private double goalPositionLocal;
   private double currentPosition;
   private double distanceToGoal;
-  private final int marginOE = 1;
+  private final double marginOE = 0.2;
 
   Manipulators manipulators = Robot.manipulators;
 
@@ -50,6 +50,8 @@ public class Wrist_SetPos extends Command {
       }
     }
 
+    SmartDashboard.putNumber("Wrist Current Position", currentPosition);
+    SmartDashboard.putNumber("Wrist Goal Position", goalPositionLocal);
     SmartDashboard.putNumber("Wrist ERROR", distanceToGoal);
   }
 
