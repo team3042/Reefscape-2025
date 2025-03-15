@@ -253,7 +253,7 @@ public class RobotContainer {
       // changed to setVoltageCoralPower, may need to change back depending on limit
       // switch :)
       gunnerXbox.leftBumper().whileTrue(new CoralIntake_SetPower(-7));
-      gunnerXbox.rightBumper().whileTrue(new CoralIntake_SetPower(8));
+      gunnerXbox.rightBumper().whileTrue(new CoralIntake_SetPower(6));
       gunnerXbox.leftTrigger().whileTrue(new AlgaeIntake_SetPower(-4));
       gunnerXbox.rightTrigger().whileTrue(new AlgaeIntake_SetPower(4));
       gunnerXbox.a().onTrue(new Score_SetPos(ElevatorConstants.L1EncoderCounts,

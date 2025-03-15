@@ -69,16 +69,16 @@ public final class Constants {
     public static double kS = 1.1;
     public static double kG = 1.2;
     public static double kV = 1.3;
-    public static int intakeEncoderCounts = 88;
+    public static int intakeEncoderCounts = 50;
     public static int L1EncoderCounts = 0;
-    public static int L2EncoderCounts = 53;
-    public static int L3EncoderCounts = 210;
+    public static int L2EncoderCounts = 90;
+    public static int L3EncoderCounts = 232;
     public static int L4EncoderCounts = 430;
   }
 
   public static class ManipulatorConstants {
-    public static int wristLowAngle = 7;
-    public static int wristHighAngle = 7; // TODO: might need to have a different angle for L4 scoring
+    public static int wristLowAngle = -11;
+    public static int wristHighAngle = -11; // TODO: might need to have a different angle for L4 scoring
     public static int wristIntakeAngle = 0;
     public static int wristStartupAngle = 0;
     public static double wristkP = 0;
