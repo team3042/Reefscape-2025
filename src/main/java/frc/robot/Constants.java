@@ -5,6 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
@@ -31,6 +33,7 @@ public final class Constants {
   public static final boolean elevatorMotorReversed = false;
   public static final boolean wristRotationMotorReversed = true; // Changed wrist rotation motor to be false,
                                                                  // originally true.
+
   public static final boolean coralWheelMotorReversed = false;
   public static final boolean algaeWheelMotorReversed = true;
   // Maximum speed of the robot in meters per second, used to limit acceleration.
@@ -90,5 +93,11 @@ public final class Constants {
     public static double wristMaxVelocity = 0;
     public static double wristMaxAcceleration = 0;
     public static final ArmFeedforward armFeedforward = new ArmFeedforward(wristkS, wristkG, wristkV);
+  }
+
+  public static class VisionConstants {
+    public static final Transform3d CAMERA_TO_ROBOT = new Transform3d(new Translation3d(0, 0, 0), new Rotation3d());
+    public static final Transform3d ROBOT_TO_CAMERA = CAMERA_TO_ROBOT.inverse();
+
   }
 }
