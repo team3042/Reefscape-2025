@@ -46,7 +46,7 @@ public class Manipulators extends SubsystemBase {
         // coralWheelMotor.restoreFactoryDefaults();
 
         // this code inverts motor, may or may not be used later(Untested)
-        wristRotationEncoderConfig.inverted(Constants.wristRotationMotorReversed);
+
         coralWheelEncoderConfig.inverted(Constants.coralWheelMotorReversed);
         algaeWheelEncoderConfig.inverted(Constants.algaeWheelMotorReversed);
 
@@ -64,12 +64,12 @@ public class Manipulators extends SubsystemBase {
         algaeWheelMotor2.configure(motorConfig,
                 SparkMax.ResetMode.kResetSafeParameters,
                 SparkMax.PersistMode.kPersistParameters);
-
+        wristRotationEncoderConfig.inverted(Constants.wristRotationMotorReversed);
     }
 
     // Methods for setting power to the motors
     public void setPowerToWristRotationMotor(double percentPower) {
-        if (wristRotationLimitSwitchDown.get() && percentPower > 0) {
+        if (!wristRotationLimitSwitchDown.get() && percentPower > 0) {
             stopWristRotationMotor();
         } else {
             wristRotationMotor.set(percentPower);

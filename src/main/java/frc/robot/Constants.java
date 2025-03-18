@@ -29,8 +29,8 @@ public final class Constants {
   public static final double MAX_SPEED = Units.feetToMeters(14.5);
   public static final double LOW_MAX_SPEED = Units.feetToMeters(3.25);
   public static final boolean elevatorMotorReversed = false;
-  public static final boolean wristRotationMotorReversed = false; // Changed wrist rotation motor to be false,
-                                                                  // originally true.
+  public static final boolean wristRotationMotorReversed = true; // Changed wrist rotation motor to be false,
+                                                                 // originally true.
   public static final boolean coralWheelMotorReversed = false;
   public static final boolean algaeWheelMotorReversed = true;
   // Maximum speed of the robot in meters per second, used to limit acceleration.
