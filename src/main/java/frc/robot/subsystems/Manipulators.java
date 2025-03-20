@@ -34,7 +34,6 @@ public class Manipulators extends SubsystemBase {
         algaeWheelMotor2 = new SparkMax(18, MotorType.kBrushless);
         wristRotationMotor = new SparkMax(20, MotorType.kBrushless);
         coralWheelMotor = new SparkMax(19, MotorType.kBrushless);
-        // TODO: define a following motor for second algae motor
 
         wristRotationEncoderConfig = new SparkMaxConfig();
         coralWheelEncoderConfig = new AbsoluteEncoderConfig();
@@ -97,13 +96,6 @@ public class Manipulators extends SubsystemBase {
         volts = Math.min(volts, 12.0);
         algaeWheelMotor.setVoltage(volts);
         algaeWheelMotor2.setVoltage(-volts);
-    }
-
-    // Methods for setting voltage to the motors
-    public void setVoltageWristRotationMotor(double volts) {
-        volts = Math.max(volts, -12.0); // Don't allow setting less than -12 volts
-        volts = Math.min(volts, 12.0); // Don't allow setting more than 12 volts
-        wristRotationMotor.setVoltage(volts);
     }
 
     // Methods for stopping the motors

@@ -30,7 +30,7 @@ public class WristManualPower extends Command {
   @Override
   public void execute() {
 
-    manipulators.setVoltageWristRotationMotor(manualPower);
+    manipulators.setPowerToWristRotationMotor(manualPower);
   }
 
   // Called once the command ends or is interrupted.

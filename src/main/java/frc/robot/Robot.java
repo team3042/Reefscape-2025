@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Manipulators;
 import frc.robot.subsystems.swervedrive.Vision;
-import frc.robot.subsystems.Climber;
+// import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Elevator;
 
 /**
@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
 
   public static final Manipulators manipulators = new Manipulators();
   public static final Elevator elevator = new Elevator();
-  public static final Climber climber = new Climber();
+  // public static final Climber climber = new Climber();
 
   UsbCamera camera;
 
@@ -98,7 +98,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Current Speed", RobotContainer.currentSpeed);
     SmartDashboard.putNumber("Elevator Counts", elevator.getElevatorMotorPosition());
     SmartDashboard.putNumber("Wrist Counts", manipulators.getWristRotationMotorPosition());
-    SmartDashboard.putNumber("Climber Counts", climber.getClimberPosition());
+    // SmartDashboard.putNumber("Climber Counts", climber.getClimberPosition());
     SmartDashboard.putBoolean("Elevator Limit Switch", elevator.elevatorlimitSwitchClicked());
     SmartDashboard.putBoolean("Wrist Lower Limit Switch", manipulators.wristLimitSwitchClicked());
   }

@@ -24,18 +24,20 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.VisionConstants;
 import frc.robot.commands.Intake_SetPos;
 import frc.robot.commands.Manual_ElevatorSetPos;
 import frc.robot.commands.Score_SetPos;
 import frc.robot.commands.Startup_SetPos;
-import frc.robot.commands.climber.ClimberManualPower;
-import frc.robot.commands.climber.ClimberSetPos;
+// import frc.robot.commands.climber.ClimberManualPower;
+// import frc.robot.commands.climber.ClimberSetPos;
 import frc.robot.commands.elevator.ElevatorManualPower;
 import frc.robot.commands.elevator.ElevatorSetPos;
 import frc.robot.commands.manipulator.AlgaeIntake_SetPower;
 import frc.robot.commands.manipulator.CoralIntake_SetPower;
 import frc.robot.commands.manipulator.WristManualPower;
 import frc.robot.commands.manipulator.Wrist_SetPos;
+//import frc.robot.commands.manipulator.CoralForTime;
 import frc.robot.commands.vision.GoToTag;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Manipulators;
@@ -74,10 +76,10 @@ public class RobotContainer {
   // Manual_ElevatorSetPos(3);
   // private final Manual_ElevatorSetPos elevatorDown = new
   // Manual_ElevatorSetPos(-3);
-  private final ClimberManualPower climberUp = new ClimberManualPower(4.0);
-  private final ClimberManualPower climberDown = new ClimberManualPower(-4.0);
-  private final WristManualPower wristup = new WristManualPower(-2);
-  private final WristManualPower wristdown = new WristManualPower(2);
+  // private final ClimberManualPower climberUp = new ClimberManualPower(4.0);
+  // private final ClimberManualPower climberDown = new ClimberManualPower(-4.0);
+  private final WristManualPower wristup = new WristManualPower(-0.2);
+  private final WristManualPower wristdown = new WristManualPower(0.2);
 
   public static double currentSpeed = Constants.MAX_SPEED;
   public boolean lowSpeed = false;
@@ -151,7 +153,7 @@ public class RobotContainer {
         new Score_SetPos(Constants.ElevatorConstants.L3EncoderCounts, Constants.ManipulatorConstants.wristLowAngle));
     NamedCommands.registerCommand("Elevator to L4",
         new Score_SetPos(Constants.ElevatorConstants.L4EncoderCounts, Constants.ManipulatorConstants.wristHighAngle));
-    NamedCommands.registerCommand("Drop Coral", new CoralIntake_SetPower(-8));
+    // NamedCommands.registerCommand("Drop Coral", new CoralForTime(-8, 1));
     NamedCommands.registerCommand("Stop Coral Intake", new CoralIntake_SetPower(0));
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -249,14 +251,14 @@ public class RobotContainer {
       driverXbox.back().whileTrue(Commands.none());
       driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(new InstantCommand(() -> toggleSlowMode()));
-      driverXbox.leftTrigger().whileTrue((climberDown));
-      driverXbox.rightTrigger().whileTrue((climberUp));
-      driverXbox.povDown().onTrue(new ClimberSetPos(200));
-      driverXbox.povUp().onTrue(new ClimberSetPos(0));
+      // driverXbox.povDown().onTrue(new ClimberSetPos(200));
+      // driverXbox.povUp().onTrue(new ClimberSetPos(0));
       driverXbox.a().whileTrue((elevatorDown));
       driverXbox.y().whileTrue((elevatorUp));
-      // driverXbox.b().whileTrue(Commands.runOnce(drivebase::goToTag(), drivebase));
-      // TODO: finish making goToTag work as command
+      // makes goToTag work as command
+      driverXbox.leftTrigger().whileTrue(drivebase.driveToPose(drivebase.goToTag(VisionConstants.TagPosition.LEFT)));
+      driverXbox.rightTrigger().whileTrue(drivebase.driveToPose(drivebase.goToTag(VisionConstants.TagPosition.RIGHT)));
+      driverXbox.b().whileTrue(drivebase.driveToPose(drivebase.goToTag(VisionConstants.TagPosition.INTAKE)));
 
       // gunner code
       // changed to setVoltageCoralPower, may need to change back depending on limit

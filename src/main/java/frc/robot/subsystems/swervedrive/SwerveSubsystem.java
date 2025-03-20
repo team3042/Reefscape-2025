@@ -77,7 +77,7 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * Enable vision odometry updates while driving.
    */
-  private final boolean visionDriveTest = false;
+  private final boolean visionDriveTest = true;
   /**
    * PhotonVision class to keep an accurate odometry.
    */
@@ -712,7 +712,7 @@ public class SwerveSubsystem extends SubsystemBase {
     swerveDrive.addVisionMeasurement(new Pose2d(3, 3, Rotation2d.fromDegrees(65)), Timer.getFPGATimestamp());
   }
 
-  public void goToTag(VisionConstants.TagPosition tagPos) {
+  public Pose2d goToTag(VisionConstants.TagPosition tagPos) {
 
     var photonRes = vision.getCamera().getLatestResult();
     if (photonRes.hasTargets()) {
@@ -720,17 +720,22 @@ public class SwerveSubsystem extends SubsystemBase {
       var targetOpt = photonRes.getTargets().stream().findFirst();
 
       if (targetOpt.isPresent()) {
-        // TODO: Add April Tag detended to Smart Dashboard
         var target = targetOpt.get();
         // get robot's current position
         Pose3d robotPose = new Pose3d(getPose());
         // Transform the robot's pose to find the camera's pose
         var cameraPose = robotPose.transformBy(VisionConstants.ROBOT_TO_CAMERA);
+        // Adds April Tag detected to Smart Dashboard
+        SmartDashboard.putNumber("April Tag", target.fiducialId);
 
         // Trasnform the camera's pose to the target's pose
         var camToTarget = target.getBestCameraToTarget();
         var targetPose = cameraPose.transformBy(camToTarget);
         Pose2d goalPose;
+
+        // Adds how much we're off by from April Tag
+        SmartDashboard.putNumber("Off from April Tag by (x)", targetPose.getX());
+        SmartDashboard.putNumber("Off from April Tag by (y)", targetPose.getY());
 
         switch (tagPos) {
           case LEFT:
@@ -746,10 +751,12 @@ public class SwerveSubsystem extends SubsystemBase {
             goalPose = targetPose.transformBy(VisionConstants.TAG_TO_INTAKE).toPose2d();
         }
 
-        driveToPose(goalPose);
+        return goalPose;
 
       }
     }
+
+    return null;
 
   }
 

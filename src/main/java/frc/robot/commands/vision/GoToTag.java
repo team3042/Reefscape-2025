@@ -132,7 +132,6 @@ public class GoToTag extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    // drivetrainSubsystem.stop(); TODO: REPLACE!!!!!!!!!!!
     drivetrainSubsystem.lock();
   }
 
