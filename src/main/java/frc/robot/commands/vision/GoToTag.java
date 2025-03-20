@@ -1,5 +1,7 @@
 package frc.robot.commands.vision;
 
+//TODO: **DELETE**
+
 import static frc.robot.Constants.VisionConstants.ROBOT_TO_CAMERA;
 
 import java.util.function.Supplier;
@@ -105,8 +107,7 @@ public class GoToTag extends Command {
 
     if (lastTarget == null) {
       // No target has been visible
-      // drivetrainSubsystem.stop();
-      // TODO: REPLACE!!!! also we have no stop method at
+      drivetrainSubsystem.lock();
     } else {
       // Drive to the target
       var xSpeed = xController.calculate(robotPose.getX());
@@ -132,6 +133,7 @@ public class GoToTag extends Command {
   @Override
   public void end(boolean interrupted) {
     // drivetrainSubsystem.stop(); TODO: REPLACE!!!!!!!!!!!
+    drivetrainSubsystem.lock();
   }
 
 }

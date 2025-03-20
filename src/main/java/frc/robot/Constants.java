@@ -81,7 +81,7 @@ public final class Constants {
 
   public static class ManipulatorConstants {
     public static int wristLowAngle = -11;
-    public static int wristHighAngle = -11; // TODO: might need to have a different angle for L4 scoring
+    public static int wristHighAngle = -11;
     public static int wristIntakeAngle = 0;
     public static int wristStartupAngle = 0;
     public static double wristkP = 0;
@@ -99,5 +99,20 @@ public final class Constants {
     public static final Transform3d CAMERA_TO_ROBOT = new Transform3d(new Translation3d(0, 0, 0), new Rotation3d());
     public static final Transform3d ROBOT_TO_CAMERA = CAMERA_TO_ROBOT.inverse();
 
+    public static final Transform3d TAG_TO_LEFT = new Transform3d(
+        new Translation3d(-0.2, 0.5, 0.0),
+        new Rotation3d(0.0, 0.0, Math.PI));
+    public static final Transform3d TAG_TO_RIGHT = new Transform3d(
+        new Translation3d(0.3, 0.5, 0.0),
+        new Rotation3d(0.0, 0.0, Math.PI));
+    public static final Transform3d TAG_TO_INTAKE = new Transform3d(
+        new Translation3d(0.6, 0.5, 0.0),
+        new Rotation3d(0.0, 0.0, Math.PI));
+
+    public enum TagPosition {
+      LEFT,
+      RIGHT,
+      INTAKE
+    }
   }
 }

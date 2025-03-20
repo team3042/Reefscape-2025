@@ -302,6 +302,13 @@ public class Vision {
     field2d.getObject("tracked targets").setPoses(poses);
   }
 
+  public PhotonCamera getCamera() {
+    for (Cameras c : Cameras.values()) {
+      return c.camera;
+    }
+    return null;
+  }
+
   /**
    * Camera Enum to select each camera
    */
@@ -593,7 +600,6 @@ public class Vision {
         }
       }
     }
-
   }
 
 }

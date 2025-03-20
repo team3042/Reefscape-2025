@@ -7,6 +7,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -69,10 +70,15 @@ public class Manipulators extends SubsystemBase {
 
     // Methods for setting power to the motors
     public void setPowerToWristRotationMotor(double percentPower) {
+        SmartDashboard.putNumber("Wrist Power", percentPower);
         if (!wristRotationLimitSwitchDown.get() && percentPower > 0) {
             stopWristRotationMotor();
         } else {
-            wristRotationMotor.set(percentPower);
+            if (percentPower > 0 && getWristRotationMotorPosition() < -12) {
+                stopWristRotationMotor();
+            } else {
+                wristRotationMotor.set(percentPower);
+            }
         }
     }
 

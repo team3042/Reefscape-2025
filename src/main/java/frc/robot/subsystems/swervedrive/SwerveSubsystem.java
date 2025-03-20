@@ -23,7 +23,10 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.Trajectory;
@@ -38,6 +41,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.Constants.VisionConstants;
 import frc.robot.commands.Score_SetPos;
 import frc.robot.subsystems.swervedrive.Vision.Cameras;
 import java.io.File;
@@ -48,6 +52,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 import org.json.simple.parser.ParseException;
+import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
 import swervelib.SwerveController;
 import swervelib.SwerveDrive;
@@ -72,7 +77,7 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * Enable vision odometry updates while driving.
    */
-  private final boolean visionDriveTest = true;
+  private final boolean visionDriveTest = false;
   /**
    * PhotonVision class to keep an accurate odometry.
    */
@@ -705,6 +710,47 @@ public class SwerveSubsystem extends SubsystemBase {
    */
   public void addFakeVisionReading() {
     swerveDrive.addVisionMeasurement(new Pose2d(3, 3, Rotation2d.fromDegrees(65)), Timer.getFPGATimestamp());
+  }
+
+  public void goToTag(VisionConstants.TagPosition tagPos) {
+
+    var photonRes = vision.getCamera().getLatestResult();
+    if (photonRes.hasTargets()) {
+      // Find the tag we want to chase
+      var targetOpt = photonRes.getTargets().stream().findFirst();
+
+      if (targetOpt.isPresent()) {
+        // TODO: Add April Tag detended to Smart Dashboard
+        var target = targetOpt.get();
+        // get robot's current position
+        Pose3d robotPose = new Pose3d(getPose());
+        // Transform the robot's pose to find the camera's pose
+        var cameraPose = robotPose.transformBy(VisionConstants.ROBOT_TO_CAMERA);
+
+        // Trasnform the camera's pose to the target's pose
+        var camToTarget = target.getBestCameraToTarget();
+        var targetPose = cameraPose.transformBy(camToTarget);
+        Pose2d goalPose;
+
+        switch (tagPos) {
+          case LEFT:
+            // Transform the tag's pose to set our goal
+            goalPose = targetPose.transformBy(VisionConstants.TAG_TO_LEFT).toPose2d();
+
+          case RIGHT:
+            // Transform the tag's pose to set our goal
+            goalPose = targetPose.transformBy(VisionConstants.TAG_TO_RIGHT).toPose2d();
+
+          default:
+            // Transform the tag's pose to set our goal
+            goalPose = targetPose.transformBy(VisionConstants.TAG_TO_INTAKE).toPose2d();
+        }
+
+        driveToPose(goalPose);
+
+      }
+    }
+
   }
 
   /**

@@ -36,6 +36,7 @@ import frc.robot.commands.manipulator.AlgaeIntake_SetPower;
 import frc.robot.commands.manipulator.CoralIntake_SetPower;
 import frc.robot.commands.manipulator.WristManualPower;
 import frc.robot.commands.manipulator.Wrist_SetPos;
+import frc.robot.commands.vision.GoToTag;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Manipulators;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
@@ -77,6 +78,7 @@ public class RobotContainer {
   private final ClimberManualPower climberDown = new ClimberManualPower(-4.0);
   private final WristManualPower wristup = new WristManualPower(-2);
   private final WristManualPower wristdown = new WristManualPower(2);
+
   public static double currentSpeed = Constants.MAX_SPEED;
   public boolean lowSpeed = false;
   // private final SwerveSubsystem drivebase = new SwerveSubsystem(new
@@ -209,12 +211,17 @@ public class RobotContainer {
 
     }
     if (DriverStation.isTest()) {
+
       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
 
       driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
+      driverXbox.start().whileTrue(Commands.none());
+      driverXbox.back().whileTrue(Commands.none());
+      driverXbox.leftBumper().onTrue(Commands.none());
       driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      driverXbox.back().whileTrue(drivebase.centerModulesCommand());
+      // driverXbox.back().whileTrue(drivebase.centerModulesCommand());
+
       // driverXbox.a().onTrue(Commands.Wrist_SetPos(Constants.ManipulatorConstants.wristHighAngle));
       // gunnerXbox.leftBumper().whileTrue((elevatorDown));
       // gunnerXbox.rightBumper().whileTrue((elevatorUp));
@@ -248,6 +255,8 @@ public class RobotContainer {
       driverXbox.povUp().onTrue(new ClimberSetPos(0));
       driverXbox.a().whileTrue((elevatorDown));
       driverXbox.y().whileTrue((elevatorUp));
+      // driverXbox.b().whileTrue(Commands.runOnce(drivebase::goToTag(), drivebase));
+      // TODO: finish making goToTag work as command
 
       // gunner code
       // changed to setVoltageCoralPower, may need to change back depending on limit
