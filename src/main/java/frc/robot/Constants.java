@@ -100,7 +100,7 @@ public final class Constants {
     public static final Transform3d ROBOT_TO_CAMERA = CAMERA_TO_ROBOT.inverse();
 
     public static final Transform3d TAG_TO_LEFT = new Transform3d(
-        new Translation3d(-0.2, 0.5, 0.0),
+        new Translation3d(0.0, -1.0, 0.0),
         new Rotation3d(0.0, 0.0, Math.PI));
     public static final Transform3d TAG_TO_RIGHT = new Transform3d(
         new Translation3d(0.3, 0.5, 0.0),

@@ -309,6 +309,13 @@ public class Vision {
     return null;
   }
 
+  public Cameras getCameras() {
+    for (Cameras c : Cameras.values()) {
+      return c;
+    }
+    return null;
+  }
+
   /**
    * Camera Enum to select each camera
    */

@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -43,6 +44,7 @@ public class Robot extends TimedRobot {
 
   public Robot() {
     instance = this;
+    PortForwarder.add(5800, "photonvision.local", 5800);
   }
 
   public static Robot getInstance() {

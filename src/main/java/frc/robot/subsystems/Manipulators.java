@@ -73,7 +73,7 @@ public class Manipulators extends SubsystemBase {
         if (!wristRotationLimitSwitchDown.get() && percentPower > 0) {
             stopWristRotationMotor();
         } else {
-            if (percentPower > 0 && getWristRotationMotorPosition() < -12) {
+            if (percentPower < 0 && getWristRotationMotorPosition() < -12) {
                 stopWristRotationMotor();
             } else {
                 wristRotationMotor.set(percentPower);
