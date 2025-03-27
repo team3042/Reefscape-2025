@@ -37,7 +37,7 @@ import frc.robot.commands.manipulator.AlgaeIntake_SetPower;
 import frc.robot.commands.manipulator.CoralIntake_SetPower;
 import frc.robot.commands.manipulator.WristManualPower;
 import frc.robot.commands.manipulator.Wrist_SetPos;
-//import frc.robot.commands.manipulator.CoralForTime;
+import frc.robot.commands.manipulator.CoralForTime;
 import frc.robot.commands.vision.GoToTag;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Manipulators;
@@ -153,7 +153,7 @@ public class RobotContainer {
         new Score_SetPos(Constants.ElevatorConstants.L3EncoderCounts, Constants.ManipulatorConstants.wristLowAngle));
     NamedCommands.registerCommand("Elevator to L4",
         new Score_SetPos(Constants.ElevatorConstants.L4EncoderCounts, Constants.ManipulatorConstants.wristHighAngle));
-    // NamedCommands.registerCommand("Drop Coral", new CoralForTime(-8, 1));
+    NamedCommands.registerCommand("Drop Coral", new CoralForTime(-8.0, 1.0));
     NamedCommands.registerCommand("Stop Coral Intake", new CoralIntake_SetPower(0));
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);

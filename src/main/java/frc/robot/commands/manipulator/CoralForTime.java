@@ -20,12 +20,12 @@ public class CoralForTime extends Command {
 
     Manipulators manipulators = Robot.manipulators;
 
-    public CoralForTime(double speedlocal; double runTime) {
+    public CoralForTime(double speedlocal, double runTime) {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(manipulators);
         speed = speedlocal;
         coralRunTime = runTime;
-    
+
     }
 
     // Called when the command is initially scheduled.
@@ -54,6 +54,6 @@ public class CoralForTime extends Command {
     @Override
     public boolean isFinished() {
         return coralTimer.hasElapsed(coralRunTime);
-        
+
     }
 }
