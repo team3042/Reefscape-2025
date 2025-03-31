@@ -6,6 +6,8 @@ package frc.robot.commands.manipulator;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants.ElevatorConstants;
+import frc.robot.Constants.ManipulatorConstants;
 import frc.robot.commands.Score_SetPos;
 import frc.robot.commands.elevator.ElevatorSetPos;
 
@@ -19,12 +21,13 @@ public class Total_Score extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
 
     ElevatorSetPos elevatorsetpos = new ElevatorSetPos(elevatorgoalCounts);
-    // CoralIntake_SetPower coral = new CoralIntake_SetPower(4);
-    CoralForTime coralfortime = new CoralForTime(-4, 1.0);
+    CoralForTime coralfortime = new CoralForTime(-5, 1.0);
     Wrist_SetPos wristsetpos = new Wrist_SetPos(wristgoalCounts);
+    ElevatorSetPos intakeElevatorSetPos = new ElevatorSetPos(ElevatorConstants.intakeEncoderCounts);
+    Wrist_SetPos intakeWrist_SetPos = new Wrist_SetPos(ManipulatorConstants.wristIntakeAngle);
 
     // ParallelCommandGroup both = new ParallelCommandGroup(coral, wristsetpos);
 
-    addCommands(elevatorsetpos, wristsetpos, coralfortime);
+    addCommands(elevatorsetpos, wristsetpos, coralfortime, intakeWrist_SetPos, intakeElevatorSetPos);
   }
 }

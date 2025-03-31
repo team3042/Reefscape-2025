@@ -23,7 +23,6 @@ public class ElevatorSetPos extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     goalPos = count;
     addRequirements(elevator);
-
   }
 
   // Called when the command is initially scheduled.
@@ -46,9 +45,9 @@ public class ElevatorSetPos extends Command {
       elevator.stopElevatorMotor();
     } else {
       if (goalPos > elevator.getElevatorMotorPosition()) { // if the elevator is lower than the goal (it needs to go up)
-        elevator.setVoltageToElevatorMotor(12);
+        reachedGoal = elevator.setVoltageToElevatorMotor(12);
       } else {
-        elevator.setVoltageToElevatorMotor(-12);
+        reachedGoal = elevator.setVoltageToElevatorMotor(-12);
       }
     }
 

@@ -58,12 +58,16 @@ public class Elevator extends SubsystemBase {
     }
 
     // Methods for setting power to the motors
-    public void setVoltageToElevatorMotor(double volts) {
+    public boolean setVoltageToElevatorMotor(double volts) {
+        boolean limitHit = false;
         if (elevatorLimitSwitch.get() || (!elevatorLimitSwitch.get() && volts <= 0)) {
             elevatorMotor.setVoltage(volts);
         } else {
+            limitHit = true;
             stopElevatorMotor();
         }
+
+        return limitHit;
     }
 
     // Methods for setting voltage to the motors
