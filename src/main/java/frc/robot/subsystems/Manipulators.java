@@ -79,6 +79,10 @@ public class Manipulators extends SubsystemBase {
                 wristRotationMotor.set(percentPower);
             }
         }
+
+        if (!wristRotationLimitSwitchDown.get()) {
+            wristRotationMotor.getEncoder().setPosition(0);
+        }
     }
 
     public void setPowertoCoralWheelMotor(double percentPower) {
