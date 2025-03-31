@@ -76,7 +76,7 @@ public final class Constants {
     public static int L1EncoderCounts = 0;
     public static int L2EncoderCounts = 90;
     public static int L3EncoderCounts = 232;
-    public static int L4EncoderCounts = 430;
+    public static int L4EncoderCounts = 450;
   }
 
   public static class ManipulatorConstants {
@@ -103,7 +103,7 @@ public final class Constants {
         new Translation3d(0.0, -1.0, 0.0),
         new Rotation3d(0.0, 0.0, Math.PI));
     public static final Transform3d TAG_TO_RIGHT = new Transform3d(
-        new Translation3d(0.3, 0.5, 0.0),
+        new Translation3d(-0.1, -0.2, 0.0),
         new Rotation3d(0.0, 0.0, Math.PI));
     public static final Transform3d TAG_TO_INTAKE = new Transform3d(
         new Translation3d(0.6, 0.5, 0.0),

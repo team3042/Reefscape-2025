@@ -13,7 +13,7 @@ import frc.robot.subsystems.Elevator;
 public class ElevatorSetPos extends Command {
   private double goalPos;
   private double distanceToGoal;
-  private final int marginOE = 1;
+  private final double marginOE = 1.0;
   private boolean reachedGoal = false;
   /** Creates a new ElevatorSetPosition. */
 
@@ -53,7 +53,7 @@ public class ElevatorSetPos extends Command {
     }
 
     SmartDashboard.putNumber("Elevator ERROR", distanceToGoal);
-
+    System.out.println("Elevator Error: " + distanceToGoal);
   }
 
   // Called once the command ends or is interrupted.
@@ -65,6 +65,6 @@ public class ElevatorSetPos extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;// this shouldn't end
+    return reachedGoal;// this shouldn't end
   }
 }

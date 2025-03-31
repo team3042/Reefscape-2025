@@ -35,6 +35,7 @@ import frc.robot.commands.elevator.ElevatorManualPower;
 import frc.robot.commands.elevator.ElevatorSetPos;
 import frc.robot.commands.manipulator.AlgaeIntake_SetPower;
 import frc.robot.commands.manipulator.CoralIntake_SetPower;
+import frc.robot.commands.manipulator.Total_Score;
 import frc.robot.commands.manipulator.WristManualPower;
 import frc.robot.commands.manipulator.Wrist_SetPos;
 import frc.robot.commands.manipulator.CoralForTime;
@@ -142,9 +143,7 @@ public class RobotContainer {
     // AT is april tags
     DriverStation.silenceJoystickConnectionWarning(true);
     NamedCommands.registerCommand("testet", drivebase.driveToDistanceCommand(1.0, 2));
-    NamedCommands.registerCommand("tempAT13", new AlgaeIntake_SetPower(10));
-    NamedCommands.registerCommand("tempAT19", new AlgaeIntake_SetPower(10));
-    NamedCommands.registerCommand("tempAT20", new AlgaeIntake_SetPower(10));
+    NamedCommands.registerCommand("Drop Coral", new CoralForTime(-6.0, 1));
     NamedCommands.registerCommand("Elevator to L1",
         new Score_SetPos(Constants.ElevatorConstants.L1EncoderCounts, Constants.ManipulatorConstants.wristLowAngle));
     NamedCommands.registerCommand("Elevator to L2",
@@ -153,8 +152,10 @@ public class RobotContainer {
         new Score_SetPos(Constants.ElevatorConstants.L3EncoderCounts, Constants.ManipulatorConstants.wristLowAngle));
     NamedCommands.registerCommand("Elevator to L4",
         new Score_SetPos(Constants.ElevatorConstants.L4EncoderCounts, Constants.ManipulatorConstants.wristHighAngle));
-    NamedCommands.registerCommand("Drop Coral", new CoralForTime(-8.0, 1.0));
     NamedCommands.registerCommand("Stop Coral Intake", new CoralIntake_SetPower(0));
+    NamedCommands.registerCommand("Total Score, L2", new Total_Score(Constants.ElevatorConstants.L2EncoderCounts,
+        Constants.ManipulatorConstants.wristLowAngle));
+    NamedCommands.registerCommand("Intake Position", new Intake_SetPos());
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
 

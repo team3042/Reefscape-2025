@@ -260,7 +260,7 @@ public class SwerveSubsystem extends SubsystemBase {
   public Command driveToPose(Pose2d pose) {
     // Create the constraints to use while pathfinding
     PathConstraints constraints = new PathConstraints(
-        swerveDrive.getMaximumChassisVelocity(), 4.0,
+        1.0, 4.0,
         swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
 
     // Since AutoBuilder is configured, we can use it to build pathfinding commands
@@ -713,7 +713,7 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   public Pose2d goToTag(VisionConstants.TagPosition tagPos) {
-
+    Pose2d goalPose = swerveDrive.getPose();
     var photonRes = vision.getCamera().getLatestResult();
     if (photonRes.hasTargets()) {
       // Find the tag we want to chase
@@ -730,8 +730,9 @@ public class SwerveSubsystem extends SubsystemBase {
 
         // Trasnform the camera's pose to the target's pose
         var camToTarget = target.getBestCameraToTarget();
-        var targetPose = cameraPose.transformBy(camToTarget);
-        Pose2d goalPose;
+        var targetPose = new Pose3d(camToTarget.getY(), camToTarget.getX(), 0, camToTarget.getRotation());
+        System.out.println("Cam Target X:" + targetPose.getX());
+        System.out.println("Cam Target Y:" + targetPose.getY());
 
         // Adds how much we're off by from April Tag
         SmartDashboard.putNumber("Off from April Tag by (x)", targetPose.getX());
@@ -751,12 +752,11 @@ public class SwerveSubsystem extends SubsystemBase {
             goalPose = targetPose.transformBy(VisionConstants.TAG_TO_INTAKE).toPose2d();
         }
 
-        return goalPose;
-
+        // goalPose.times(-1.0);
       }
     }
 
-    return null;
+    return goalPose;
 
   }
 

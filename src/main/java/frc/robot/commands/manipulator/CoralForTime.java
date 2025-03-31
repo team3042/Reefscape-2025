@@ -33,6 +33,8 @@ public class CoralForTime extends Command {
     public void initialize() {
         coralTimer.reset();
         coralTimer.start();
+        System.out.println("Speed: " + speed);
+        System.out.println("RunTime: " + coralRunTime);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -40,6 +42,7 @@ public class CoralForTime extends Command {
     public void execute() {
 
         manipulators.setVoltageToCoralWheelMotor(speed);
+        System.out.println("setting coral outtake speed");
 
     }
 

@@ -18,6 +18,7 @@ public class Wrist_SetPos extends Command {
   private double currentPosition;
   private double distanceToGoal;
   private final double marginOE = 0.4;
+  boolean reachedGoal = false;
 
   Manipulators manipulators = Robot.manipulators;
 
@@ -42,6 +43,7 @@ public class Wrist_SetPos extends Command {
 
     if (distanceToGoal < marginOE) {
       manipulators.stopWristRotationMotor();
+      reachedGoal = true;
     } else {
       if (goalPositionLocal > currentPosition) {
         manipulators.setPowerToWristRotationMotor(0.3);
@@ -50,6 +52,7 @@ public class Wrist_SetPos extends Command {
       }
     }
 
+    System.out.println("Wrist Position: " + currentPosition);
     SmartDashboard.putNumber("Wrist Current Position", currentPosition);
     SmartDashboard.putNumber("Wrist Goal Position", goalPositionLocal);
     SmartDashboard.putNumber("Wrist ERROR", distanceToGoal);
@@ -63,6 +66,7 @@ public class Wrist_SetPos extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    System.out.println("reached wrist goal? " + reachedGoal);
+    return reachedGoal;
   }
 }
