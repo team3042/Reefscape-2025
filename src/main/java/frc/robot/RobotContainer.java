@@ -258,9 +258,9 @@ public class RobotContainer {
       driverXbox.y().whileTrue((elevatorUp));
       // makes goToTag work as command
       // driverXbox.leftTrigger().onTrue(drivebase.driveToPose(drivebase.goToTag(VisionConstants.TagPosition.LEFT)));
-      driverXbox.leftTrigger().onTrue(drivebase.aimAtTarget());
-      driverXbox.rightTrigger().onTrue(drivebase.driveToPose(drivebase.goToTag(VisionConstants.TagPosition.RIGHT)));
-      driverXbox.b().onTrue(drivebase.driveToPose(drivebase.goToTag(VisionConstants.TagPosition.INTAKE)));
+      // driverXbox.leftTrigger().onTrue(drivebase.aimAtTarget());
+      // driverXbox.rightTrigger().onTrue(drivebase.driveToPose(drivebase.goToTag(VisionConstants.TagPosition.RIGHT)));
+      // driverXbox.b().onTrue(drivebase.driveToPose(drivebase.goToTag(VisionConstants.TagPosition.INTAKE)));
 
       // gunner code
       // changed to setVoltageCoralPower, may need to change back depending on limit

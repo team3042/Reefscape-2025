@@ -80,10 +80,10 @@ public final class Constants {
   }
 
   public static class ManipulatorConstants {
-    public static int wristLowAngle = -11;
-    public static int wristHighAngle = -11;
-    public static int wristIntakeAngle = 0;
-    public static int wristStartupAngle = 0;
+    public static double wristLowAngle = -11;
+    public static double wristHighAngle = -11;
+    public static double wristIntakeAngle = 0.5;
+    public static double wristStartupAngle = 0;
     public static double wristkP = 0;
     public static double wristkI = 0;
     public static double wristkD = 0;

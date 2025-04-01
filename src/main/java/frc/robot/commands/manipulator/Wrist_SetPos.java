@@ -53,6 +53,7 @@ public class Wrist_SetPos extends Command {
     }
 
     System.out.println("Wrist Position: " + currentPosition);
+    System.out.println("Wrist Goal Position: " + goalPositionLocal);
     SmartDashboard.putNumber("Wrist Current Position", currentPosition);
     SmartDashboard.putNumber("Wrist Goal Position", goalPositionLocal);
     SmartDashboard.putNumber("Wrist ERROR", distanceToGoal);
