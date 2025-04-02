@@ -21,13 +21,15 @@ public class Total_Score extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
 
     ElevatorSetPos elevatorsetpos = new ElevatorSetPos(elevatorgoalCounts);
-    CoralForTime coralfortime = new CoralForTime(-5, 1.0);
-    Wrist_SetPos wristsetpos = new Wrist_SetPos(wristgoalCounts);
-    ElevatorSetPos intakeElevatorSetPos = new ElevatorSetPos(ElevatorConstants.intakeEncoderCounts);
-    Wrist_SetPos intakeWrist_SetPos = new Wrist_SetPos(ManipulatorConstants.wristIntakeAngle);
+    // CoralForTime coralfortime = new CoralForTime(-5, 1.0);
+    // Wrist_SetPos wristsetpos = new Wrist_SetPos(wristgoalCounts);
+    // ElevatorSetPos intakeElevatorSetPos = new
+    // ElevatorSetPos(ElevatorConstants.intakeEncoderCounts);
+    // Wrist_SetPos intakeWrist_SetPos = new
+    // Wrist_SetPos(ManipulatorConstants.wristIntakeAngle);
 
     // ParallelCommandGroup both = new ParallelCommandGroup(coral, wristsetpos);
 
-    addCommands(elevatorsetpos, wristsetpos, coralfortime, intakeWrist_SetPos, intakeElevatorSetPos);
+    addCommands(elevatorsetpos);
   }
 }

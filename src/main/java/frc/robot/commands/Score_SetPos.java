@@ -19,8 +19,9 @@ public class Score_SetPos extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
 
     ElevatorSetPos elevatorsetpos = new ElevatorSetPos(elevatorgoalCounts);
-    Wrist_SetPos wristsetpos = new Wrist_SetPos(wristgoalCounts);
+    // Wrist_SetPos wristsetpos = new Wrist_SetPos(wristgoalCounts);
 
-    addCommands(elevatorsetpos, wristsetpos);
+    // addCommands(elevatorsetpos, wristsetpos);
+    addCommands(elevatorsetpos);
   }
 }

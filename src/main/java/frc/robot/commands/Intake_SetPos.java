@@ -19,8 +19,9 @@ public class Intake_SetPos extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     ElevatorSetPos elevatorsetpos = new ElevatorSetPos(ElevatorConstants.intakeEncoderCounts);
-    Wrist_SetPos wristsetpos = new Wrist_SetPos(ManipulatorConstants.wristIntakeAngle);
+    // Wrist_SetPos wristsetpos = new
+    // Wrist_SetPos(ManipulatorConstants.wristIntakeAngle);
 
-    addCommands(elevatorsetpos, wristsetpos);
+    addCommands(elevatorsetpos);
   }
 }

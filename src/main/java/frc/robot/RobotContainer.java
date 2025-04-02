@@ -153,8 +153,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("Elevator to L4",
         new Score_SetPos(Constants.ElevatorConstants.L4EncoderCounts, Constants.ManipulatorConstants.wristHighAngle));
     NamedCommands.registerCommand("Stop Coral Intake", new CoralIntake_SetPower(0));
-    NamedCommands.registerCommand("Total Score, L2", new Total_Score(Constants.ElevatorConstants.L2EncoderCounts,
-        Constants.ManipulatorConstants.wristLowAngle));
+    // NamedCommands.registerCommand("Total Score, L4", new
+    // Total_Score(Constants.ElevatorConstants.L4EncoderCounts,
+    // Constants.ManipulatorConstants.wristLowAngle));
     NamedCommands.registerCommand("Intake Position", new Intake_SetPos());
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
