@@ -9,6 +9,18 @@
           "data": {
             "pathName": "Drive straight to reef"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Elevator to L4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Back away"
+          }
         }
       ]
     }
