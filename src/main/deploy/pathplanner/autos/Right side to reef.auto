@@ -7,19 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Drive straight to reef"
+            "pathName": "Right side to reef"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "Total Score, L4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Back away"
           }
         }
       ]

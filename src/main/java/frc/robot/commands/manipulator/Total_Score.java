@@ -20,7 +20,7 @@ public class Total_Score extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 
-    // ElevatorSetPos elevatorsetpos = new ElevatorSetPos(elevatorgoalCounts);
+    ElevatorSetPos elevatorsetpos = new ElevatorSetPos(elevatorgoalCounts);
     CoralForTime coralfortime = new CoralForTime(-5, 1.0);
     // Wrist_SetPos wristsetpos = new Wrist_SetPos(wristgoalCounts);
     // ElevatorSetPos intakeElevatorSetPos = new
@@ -30,6 +30,6 @@ public class Total_Score extends SequentialCommandGroup {
 
     // ParallelCommandGroup both = new ParallelCommandGroup(coral, wristsetpos);
 
-    addCommands(coralfortime);
+    addCommands(elevatorsetpos, coralfortime);
   }
 }

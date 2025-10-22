@@ -153,7 +153,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Elevator to L4",
         new Score_SetPos(Constants.ElevatorConstants.L4EncoderCounts, Constants.ManipulatorConstants.wristHighAngle));
     NamedCommands.registerCommand("Stop Coral Intake", new CoralIntake_SetPower(0));
-    NamedCommands.registerCommand("Total Score, L4", new Total_Score(Constants.ElevatorConstants.L4EncoderCounts,
+    NamedCommands.registerCommand("Total Score, L4", new Total_Score(Constants.ElevatorConstants.intakeEncoderCounts,
         Constants.ManipulatorConstants.wristLowAngle));
     NamedCommands.registerCommand("Intake Position", new Intake_SetPos());
     autoChooser = AutoBuilder.buildAutoChooser();
@@ -281,6 +281,7 @@ public class RobotContainer {
       gunnerXbox.rightStick().onTrue(new Startup_SetPos());
       gunnerXbox.povUp().whileTrue(wristup);
       gunnerXbox.povDown().whileTrue(wristdown);
+      gunnerXbox.povRight().onTrue(new CoralForTime(-5, 0.5));
 
     }
   }
